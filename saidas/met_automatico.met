@@ -1,0 +1,190 @@
+Meteorology: met_automatico
+Description: Met model gerado automaticamente
+Last Modified Date: 24 September 2026
+Last Modified Time: 17:53:53
+Version: 4.13
+Unit System: Metric
+Set Missing Data to Default: No
+Precipitation Method: Specified Hyetograph
+Use Basin Model: ParaibaDoSul
+End:
+Subbasin: Subbasin-1
+Precipitation Gage: S_1
+End:
+Subbasin: Subbasin-2
+Precipitation Gage: S_2
+End:
+Subbasin: Subbasin-3
+Precipitation Gage: S_3
+End:
+Subbasin: Subbasin-4
+Precipitation Gage: S_4
+End:
+Subbasin: Subbasin-5
+Precipitation Gage: S_5
+End:
+Subbasin: Subbasin-6
+Precipitation Gage: S_6
+End:
+Subbasin: Subbasin-7
+Precipitation Gage: S_7
+End:
+Subbasin: Subbasin-8
+Precipitation Gage: S_8
+End:
+Subbasin: Subbasin-9
+Precipitation Gage: S_9
+End:
+Subbasin: Subbasin-10
+Precipitation Gage: S_10
+End:
+Subbasin: Subbasin-11
+Precipitation Gage: S_11
+End:
+Subbasin: Subbasin-12
+Precipitation Gage: S_12
+End:
+Subbasin: Subbasin-13
+Precipitation Gage: S_13
+End:
+Subbasin: Subbasin-14
+Precipitation Gage: S_14
+End:
+Subbasin: Subbasin-15
+Precipitation Gage: S_15
+End:
+Subbasin: Subbasin-16
+Precipitation Gage: S_16
+End:
+Subbasin: Subbasin-17
+Precipitation Gage: S_17
+End:
+Subbasin: Subbasin-18
+Precipitation Gage: S_18
+End:
+Subbasin: Subbasin-19
+Precipitation Gage: S_19
+End:
+Subbasin: Subbasin-20
+Precipitation Gage: S_20
+End:
+Subbasin: Subbasin-21
+Precipitation Gage: S_21
+End:
+Subbasin: Subbasin-22
+Precipitation Gage: S_22
+End:
+Subbasin: Subbasin-23
+Precipitation Gage: S_23
+End:
+Subbasin: Subbasin-24
+Precipitation Gage: S_24
+End:
+Subbasin: Subbasin-25
+Precipitation Gage: S_25
+End:
+Subbasin: Subbasin-26
+Precipitation Gage: S_26
+End:
+Subbasin: Subbasin-27
+Precipitation Gage: S_27
+End:
+Subbasin: Subbasin-28
+Precipitation Gage: S_28
+End:
+Subbasin: Subbasin-29
+Precipitation Gage: S_29
+End:
+Subbasin: Subbasin-30
+Precipitation Gage: S_30
+End:
+Subbasin: Subbasin-31
+Precipitation Gage: S_31
+End:
+Subbasin: Subbasin-32
+Precipitation Gage: S_32
+End:
+Subbasin: Subbasin-33
+Precipitation Gage: S_33
+End:
+Subbasin: Subbasin-34
+Precipitation Gage: S_34
+End:
+Subbasin: Subbasin-35
+Precipitation Gage: S_35
+End:
+Subbasin: Subbasin-36
+Precipitation Gage: S_36
+End:
+Subbasin: Subbasin-37
+Precipitation Gage: S_37
+End:
+Subbasin: Subbasin-38
+Precipitation Gage: S_38
+End:
+Subbasin: Subbasin-39
+Precipitation Gage: S_39
+End:
+Subbasin: Subbasin-40
+Precipitation Gage: S_40
+End:
+Subbasin: Subbasin-41
+Precipitation Gage: S_41
+End:
+Subbasin: Subbasin-42
+Precipitation Gage: S_42
+End:
+Subbasin: Subbasin-43
+Precipitation Gage: S_43
+End:
+Subbasin: Subbasin-44
+Precipitation Gage: S_44
+End:
+Subbasin: Subbasin-45
+Precipitation Gage: S_45
+End:
+Subbasin: Subbasin-46
+Precipitation Gage: S_46
+End:
+Subbasin: Subbasin-47
+Precipitation Gage: S_47
+End:
+Subbasin: Subbasin-48
+Precipitation Gage: S_48
+End:
+Subbasin: Subbasin-49
+Precipitation Gage: S_49
+End:
+Subbasin: Subbasin-50
+Precipitation Gage: S_50
+End:
+Subbasin: Subbasin-51
+Precipitation Gage: S_51
+End:
+Subbasin: Subbasin-52
+Precipitation Gage: S_52
+End:
+Subbasin: Subbasin-53
+Precipitation Gage: S_53
+End:
+Subbasin: Subbasin-54
+Precipitation Gage: S_54
+End:
+Subbasin: Subbasin-55
+Precipitation Gage: S_55
+End:
+Subbasin: Subbasin-56
+Precipitation Gage: S_56
+End:
+Subbasin: Subbasin-57
+Precipitation Gage: S_57
+End:
+Subbasin: Subbasin-58
+Precipitation Gage: S_58
+End:
+Subbasin: Subbasin-59
+Precipitation Gage: S_59
+End:
+Subbasin: Subbasin-60
+Precipitation Gage: S_60
+End:

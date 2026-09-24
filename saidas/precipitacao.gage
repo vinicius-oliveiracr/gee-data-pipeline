@@ -1,0 +1,840 @@
+
+Gage: S_1
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /1/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_2
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /2/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_3
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /3/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_4
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /4/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_5
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /5/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_6
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /6/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_7
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /7/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_8
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /8/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_9
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /9/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_10
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /10/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_11
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /11/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_12
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /12/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_13
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /13/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_14
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /14/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_15
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /15/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_16
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /16/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_17
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /17/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_18
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /18/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_19
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /19/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_20
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /20/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_21
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /21/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_22
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /22/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_23
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /23/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_24
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /24/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_25
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /25/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_26
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /26/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_27
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /27/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_28
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /28/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_29
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /29/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_30
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /30/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_31
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /31/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_32
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /32/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_33
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /33/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_34
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /34/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_35
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /35/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_36
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /36/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_37
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /37/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_38
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /38/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_39
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /39/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_40
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /40/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_41
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /41/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_42
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /42/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_43
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /43/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_44
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /44/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_45
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /45/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_46
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /46/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_47
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /47/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_48
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /48/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_49
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /49/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_50
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /50/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_51
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /51/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_52
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /52/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_53
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /53/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_54
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /54/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_55
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /55/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_56
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /56/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_57
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /57/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_58
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /58/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_59
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /59/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:
+
+Gage: S_60
+Description: Gage gerado automaticamente via Python
+Last Modified Date: 24September2026
+Last Modified Time: 17:53
+Reference Height Unit: Meters
+Reference Height: 10.0
+Units: MM
+Data Type: PER-INC
+Gage Type: Precipitation
+Precipitation Gage Type: External DSS
+External DSS File: dados_chirps.dss
+External DSS Pathname: /60/PRECIP/OBS//1DAY/GPM-AUTOMATION/
+End:

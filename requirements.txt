@@ -1,0 +1,19 @@
+# Integração e Autenticação Google Earth Engine
+earthengine-api
+google-auth
+geemap
+
+# Manipulação de Dados e Configuração
+python-dotenv
+pandas
+numpy
+jinja2
+
+# Processamento Geoespacial e Raster
+geopandas
+shapely
+rasterio
+rasterstats
+
+# Integração HEC-DSS
+pydsstools
