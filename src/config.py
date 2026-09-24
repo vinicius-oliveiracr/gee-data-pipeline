@@ -43,10 +43,10 @@ class DssConfig:
             print("ERROR: Variables missing (CSV_FILE, DSS_FILE, GAGE_FILE, MET_FILE) at .env file.")
 
         self.B_PART = "PRECIP"
-        self.C_PART = "OBS"
-        self.E_PART = "1DAY"
-        self.F_PART = "GPM-AUTOMATION"
-        self.INTERVAL_MINUTES = 1440
+        self.C_PART = "PRECIP-INC"       
+        self.E_PART = "1DAY"             
+        self.F_PART = "GPM-CHIRPS"
+        self.INTERVAL = 1                
         self.DATA_TYPE = "PER-INC"
         self.UNITS = "MM"
 

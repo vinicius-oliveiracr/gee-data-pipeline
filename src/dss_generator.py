@@ -27,7 +27,7 @@ class DssGenerator:
             gage_entries = []
 
             for i, sub_id in enumerate(sorted(subbasins)):
-                pathname_ref = f"/{sub_id}/{self.config.B_PART}/{self.config.C_PART}//{self.config.E_PART}/{self.config.F_PART}/"
+                pathname_ref = f"//S_{sub_id}/{self.config.C_PART}///{self.config.F_PART}/"
 
                 gage_entries.append({
                     "id":f"Gage-{i}",
@@ -67,7 +67,7 @@ class DssGenerator:
         dss_path = self.config.dss_file
 
         with HecDss.Open(dss_path, version=7) as dss:
-            for i, (subbasin_id, sub_df) in enumerate(filtered_df.groupby("raster_val")):
+            for i, (sub_id, sub_df) in enumerate(filtered_df.groupby("raster_val")):
                 if sub_df.empty:
                     continue
                 sub_df = sub_df.sort_values("date")
@@ -75,13 +75,13 @@ class DssGenerator:
                 start_date = sub_df['date'].iloc[0]
 
                 pathname_save = (
-                            f"/{subbasin_id}/{self.config.B_PART}/{self.config.C_PART}/"
+                            f"/{sub_id}/{self.config.B_PART}/{self.config.C_PART}/"
                             f"{start_date.strftime('%d%b%Y').upper()}/"
                             f"{self.config.E_PART}/{self.config.F_PART}/"
                         )
                 
                 pathname_ref = (
-                            f"/{subbasin_id}/{self.config.B_PART}/{self.config.C_PART}/"
+                            f"/{sub_id}/{self.config.B_PART}/{self.config.C_PART}/"
                             f"/1Day/{self.config.F_PART}/"
                         )
                 
@@ -89,16 +89,16 @@ class DssGenerator:
 
                 try:
                     dss.put_ts(tsc)
-                    logging.info(f"Data saved for subbasin {subbasin_id}.")
+                    logging.info(f"Data saved for subbasin {sub_id}.")
 
                     gage_entries.append({
                         "id": f"Gage-{i}",
-                        "name": f"S_{subbasin_id}",
+                        "name": f"S_{sub_id}",
                         "dss_file": os.path.basename(dss_path),
                         "dss_path": pathname_ref
                         })
                 except Exception as e:
-                    logging.error(f"Error while saving data for subbasin {subbasin_id}: {e}")
+                    logging.error(f"Error while saving data for subbasin {sub_id}: {e}")
                     continue
 
             logging.info(f"DSS file created at {dss_path} with {len(gage_entries)} entries ")
@@ -122,6 +122,5 @@ class DssGenerator:
         tsc.values = values
         tsc.units = self.config.UNITS
         tsc.type = self.config.DATA_TYPE
-        tsc.interval = self.config.INTERVAL_MINUTES
-
+        tsc.interval = 1  # 1 unidade de 1DAY
         return tsc
