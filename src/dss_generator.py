@@ -1,6 +1,7 @@
 import pandas as pd
 from pydsstools.heclib.dss import HecDss
 from pydsstools.core import TimeSeriesContainer
+import numpy as np
 import os
 import logging
 
@@ -115,12 +116,20 @@ class DssGenerator:
             raise
 
     def build_tsc(self, pathname, start_date, values) -> TimeSeriesContainer:
-        tsc = TimeSeriesContainer()
-        tsc.pathname = pathname
-        tsc.startDateTime = start_date.strftime("%d%b%Y 24:00:00").upper()
-        tsc.numberValues = len(values)
-        tsc.values = values
-        tsc.units = self.config.UNITS
-        tsc.type = self.config.DATA_TYPE
-        tsc.interval = 1  # 1 unidade de 1DAY
+
+        if hasattr(values, "to_numpy"):
+            valid_values = values.to_numpy(dtype=np.float64)
+        else:
+            valid_values = np.asarray(values, dtype=np.float64)
+        
+        count = len(valid_values)
+        interval = self.config.INTERVAL
+
+        tsc = TimeSeriesContainer(pathname, count, interval)
+                
+        tsc.start_time = start_date.strftime("%d%b%Y 2400").upper()       
+        tsc.values = valid_values
+        tsc.data_units = self.config.UNITS
+        tsc.data_type = self.config.DATA_TYPE
+
         return tsc
