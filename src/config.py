@@ -3,41 +3,86 @@ import os
 import sys
 from dotenv import load_dotenv
 from datetime import datetime
+import logging
 
 load_dotenv()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-class Config:
-    def __init__(self):
 
-        self.old_gage_file = os.getenv("OLD_GAGE_FILE")
-        self.dss_file = os.getenv("DSS_FILE")
-        self.shp_path = os.getenv("FILE_PATH")
-        self.exit_path = os.getenv("EXIT_PATH")
+def parse_date(date_val):
+    if isinstance(date_val, str):
+        try:
+            return datetime.strptime(date_val, "%Y-%m-%d")
+        except ValueError:
+            raise ValueError(f"Invalid date format: {date_val}. Expected format: YYYY-MM-DD")
+
+        
+class Config:
+    def __init__(self,
+                 shp_path=None,
+                 exit_path=None,
+                 start_date=None,
+                 end_date=None,
+                 old_gage_file=None,
+                 dss_file=None,
+                 project_name=None,
+                 control_file=None):
+
+        self.shp_path = shp_path or os.getenv("FILE_PATH")
+        self.exit_path = exit_path or os.getenv("EXIT_PATH")
+
+        self.default_start = datetime(2018, 1, 1)
+        self.default_end = datetime(2022, 12, 31)
+        
+        # Tratamento de erro na conversão de datas (onde um ValueError PODE acontecer)
+        try:
+            self.start_date = parse_date(start_date) if start_date else self.default_start
+            self.end_date = parse_date(end_date) if end_date else self.default_end
+        except ValueError as e:
+            logging.error(f"Erro ao converter data: {e}")
+            raise e
+
+        self.old_gage_file = old_gage_file or os.getenv("OLD_GAGE_FILE")
+        self.dss_file = dss_file or os.getenv("DSS_FILE")
+        self.project_name = project_name or os.getenv("PROJECT_NAME")
+        self.control_file = control_file or os.getenv("CONTROL_FILE")
+        
         self.gcn_raster_path = os.path.join(BASE_DIR, "assets", "GCN.tif")
         self.api_key = os.getenv("API_KEY")
         self.account = os.getenv("EE_ACCOUNT")
         self.private_key_path = os.getenv("PRIVATE_KEY_PATH")
-        self.project_name = os.getenv("PROJECT_NAME")
-        self.control_file = os.getenv("CONTROL_FILE")
 
-        self.start_date = datetime(2018, 1, 1)
-        self.end_date = datetime(2022, 12, 31)
-
-        if not all([self.private_key_path, self.project_name, self.shp_path, self.exit_path]):
-            print("ERROR: Essencial variables (PRIVATE_KEY_PATH, PROJECT_NAME, FILE_PATH, EXIT_PATH) not found in .env file.")
-            sys.exit(1)
+        # Validação explícita de presença de valores essenciais
+        essential_vars = {
+            "PRIVATE_KEY_PATH": self.private_key_path,
+            "PROJECT_NAME": self.project_name,
+            "FILE_PATH (shp_path)": self.shp_path,
+            "EXIT_PATH": self.exit_path
+        }
+        
+        missing = [key for key, value in essential_vars.items() if not value]
+        if missing:
+            logging.warning(f"Essential variables missing: {', '.join(missing)}")
+            
 
 
 class DssConfig:
-    def __init__(self):
-
-        self.csv_file = os.getenv("CSV_FILE")
-        self.dss_file = os.getenv("DSS_FILE")
-        self.gage_file = os.getenv("GAGE_FILE")
-        self.met_file = os.getenv("MET_FILE")
-        self.control_file = os.getenv("CONTROL_FILE")
-        self.start_date = datetime(2018, 1, 1)
-        self.end_date = datetime(2022, 12, 31)
+    def __init__(self, 
+                dss_file=None,
+                gage_file=None,
+                met_file=None,
+                csv_file=None,
+                control_file=None,
+                start_date=None,
+                end_date=None):
+        self.default_start = datetime(2018, 1, 1)
+        self.default_end = datetime(2022, 12, 31)
+        self.csv_file = csv_file or os.getenv("CSV_FILE")
+        self.dss_file = dss_file or os.getenv("DSS_FILE")
+        self.gage_file = gage_file or os.getenv("GAGE_FILE")
+        self.met_file = met_file or os.getenv("MET_FILE")
+        self.control_file = control_file or os.getenv("CONTROL_FILE")
+        self.start_date = parse_date(start_date) if start_date else self.default_start
+        self.end_date = parse_date(end_date) if end_date else self.default_end
 
         if not all ([self.csv_file, self.dss_file, self.gage_file, self.met_file]):
             print("ERROR: Variables missing (CSV_FILE, DSS_FILE, GAGE_FILE, MET_FILE) at .env file.")
