@@ -1,6 +1,8 @@
 import inspect
 import os
+import shutil
 import sys
+from pathlib import Path
 from dotenv import load_dotenv
 from datetime import datetime
 import logging
@@ -68,6 +70,8 @@ class Config:
 class DssConfig:
     def __init__(self, 
                 dss_file=None,
+                hms_file = None,
+                project_name=None,
                 gage_file=None,
                 met_file=None,
                 csv_file=None,
@@ -78,11 +82,32 @@ class DssConfig:
         self.default_end = datetime(2022, 12, 31)
         self.csv_file = csv_file or os.getenv("CSV_FILE")
         self.dss_file = dss_file or os.getenv("DSS_FILE")
+        self.hms_file = hms_file or os.getenv("HMS_FILE")
+        self.project_name = project_name or os.getenv("HMS_PROJECT_NAME")
         self.gage_file = gage_file or os.getenv("GAGE_FILE")
         self.met_file = met_file or os.getenv("MET_FILE")
         self.control_file = control_file or os.getenv("CONTROL_FILE")
         self.start_date = parse_date(start_date) if start_date else self.default_start
         self.end_date = parse_date(end_date) if end_date else self.default_end
+
+        self.project_dir = os.path.dirname(self.hms_file)
+
+        hms_basename = os.path.basename(self.hms_file)
+        self.project_name = os.getenv("PROJECT_NAME", os.path.splitext(hms_basename)[0])
+        
+        self.dss_file = os.path.join(self.project_dir, "dados_chirps.dss")
+        self.gage_file = os.path.join(self.project_dir, "precipitacao.gage")
+        self.met_file = os.path.join(self.project_dir, "met_automatico.met")
+        self.control_file = os.path.join(self.project_dir, "control_automatico.control")
+
+        base_dir = Path(__file__).resolve().parent.parent
+        self.local_output_dir = base_dir / "saidas" / "hms_export"
+        self.local_output_dir.mkdir(parents=True, exist_ok=True)
+
+        self.dss_file = str(self.local_output_dir / "dados_chirps.dss")
+        self.gage_file = str(self.local_output_dir / "precipitacao.gage")
+        self.met_file = str(self.local_output_dir / "met_automatico.met")
+        self.control_file = str(self.local_output_dir / "control_automatico.control")
 
         if not all ([self.csv_file, self.dss_file, self.gage_file, self.met_file]):
             print("ERROR: Variables missing (CSV_FILE, DSS_FILE, GAGE_FILE, MET_FILE) at .env file.")
@@ -95,9 +120,9 @@ class DssConfig:
         self.DATA_TYPE = "PER-INC"
         self.UNITS = "MM"
 
-        self.MET_MODEL_NAME = "met_automatico"
+        self.met_model_name = "met_automatico"
         self.BASIN_MODEL_NAME = "ParaibaDoSul"
-        self.CONTROL_NAME = "control_automatico"
+        self.control_name = "control_automatico"
 
         self.GAGE_TEMPLATE = inspect.cleandoc("""
      {% for g in gages %}
@@ -148,3 +173,33 @@ class DssConfig:
      Time Interval: 1440
      End:
      """)
+
+    def export_to_hec_hms_dir(self):
+        print(f"Copiando arquivos de saída para {self.project_dir}...")
+        for src_file in self.local_output_dir.glob("*.*"):
+            dest_file = os.path.join(self.project_dir, src_file.name)
+            shutil.copy2(src_file, dest_file)
+        print("✅ Files exported with success to HEC-HMS!")
+
+    HMS_CONFIG = {
+        "project_name": "tcc",
+        "description": "automação hidrológica para o tcc",
+        "version": "4.13",
+        "filepath_separator": "\\",
+        "dss_filename": "tcc.dss",
+        "timezone": "America/Sao_Paulo",
+        "basin": {
+            "name": "pds",
+            "filename": "pds.basin"
+        },
+        "meteorology": {
+            "name": "met_automatico",
+            "filename": "met_automatico.met"
+        },
+        "control": {
+            "name": "control_automatico",
+            "filename": "control_automatico.control"
+        },
+        "gages": [f"S_{i}" for i in range(1, 61)],
+        "gage_filename": "precipitacao.gage"
+    }

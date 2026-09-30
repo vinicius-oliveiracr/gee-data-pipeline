@@ -29,14 +29,14 @@ def gee_workflow(config: Config = None):
         downloader = PrecipitationDownloader(config)
         downloader.download_data(gdf_wgs84)
 
-        logging.info("\n Script finalized successfully.")
+        logging.info("\n GEE workflow finalized successfully.\n")
     except Exception as e:
         logging.error(f"Fatal error at workflow: {e}")
         raise e
 
     
 def dss_workflow(dss_config: DssConfig = None):
-    logging.info("DSS/HMS automation proccess initialized.")
+    logging.info("DSS/HMS automation proccess initialized.\n")
 
     try:
         if dss_config is None:
@@ -53,6 +53,11 @@ def dss_workflow(dss_config: DssConfig = None):
         file_generator.generate_gage_file(gage_data_list)
         file_generator.generate_met_file(gage_data_list)
         file_generator.generate_control_file()
+
+        gage_names = [g['name'] for g in gage_data_list if 'name' in g]
+        file_generator.sync_hms_project(gage_names)
+
+        dss_config.export_to_hec_hms_dir()
 
         logging.info(f"Generating all files for {len(gage_data_list)} subbasins.")
         logging.info("Process finalized successfully.")

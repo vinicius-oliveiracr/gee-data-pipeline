@@ -1,7 +1,6 @@
 from jinja2 import Template
 from datetime import datetime
 import logging
-import locale
 import os
 
 class HmsFileGenerator:
@@ -17,6 +16,66 @@ class HmsFileGenerator:
 
         return f"{date_obj.day:02d}{months[date_obj.month]}{date_obj.year}"
 
+    def sync_hms_project(self, gage_names: list):
+        hms_path = self.config.hms_file
+        if not hms_path or not os.path.exists(hms_path):
+            logging.error(f"HMS file path is invalid or does not exist: {hms_path}")
+            return False
+
+        project_name = self.config.project_name
+        met_name = self.config.met_model_name
+        control_name = self.config.control_file
+
+        date_str = self._format_hec_date(datetime.now())
+        time_str = datetime.now().strftime("%H:%M")
+
+        with open(hms_path, 'r', encoding='ascii', errors='ignore') as file:
+            content = file.read()
+
+        new_blocks = []
+
+        if f'Meteorology: {met_name}' not in content:
+            met_file = os.path.basename(self.config.met_file)
+            new_blocks.append(f"Meteorology: {met_name}\n"
+                f"     Filename: {met_file}\n"
+                f"     Description: Gerado via automacao Python\n"
+                f"     Last Modified Date: {date_str}\n"
+                f"     Last Modified Time: {time_str}\n"
+                f"End:\n\n"
+            )
+
+        if f'Control: {control_name}' not in content:
+            control_file = os.path.basename(self.config.control_file)
+            new_blocks.append(f"Control: {control_name}\n"
+                f"     Filename: {control_file}\n"
+                f"     Description: Gerado via automacao Python\n"
+                f"     Last Modified Date: {date_str}\n"
+                f"     Last Modified Time: {time_str}\n"
+                f"End:\n\n"
+            )
+
+        gage_file = os.path.basename(self.config.gage_file)
+        for g_name in gage_names:
+            if f"Gage: {g_name}" not in content:
+                new_blocks.append(
+                    f"Gage: {g_name}\n"
+                    f"     Filename: {gage_file}\n"
+                    f"     Description: Gerado via automacao Python\n"
+                    f"     Last Modified Date: {date_str}\n"
+                    f"     Last Modified Time: {time_str}\n"
+                    f"End:\n\n"
+                )
+
+        if new_blocks:
+            with open(hms_path, 'a', encoding='ascii', newline='\r\n') as f:
+                f.write("\r\n" + "".join(new_blocks))
+            logging.info(".hms file updated and synchronized with success!")
+        else:
+            logging.info("All components were already registered in the .hms file.")
+
+        return True
+
+    
     def generate_gage_file(self, gage_data: list):
         if not gage_data:
             logging.warning("No entry for gage file. ")
@@ -61,7 +120,7 @@ class HmsFileGenerator:
 
         template = Template(self.config.MET_TEMPLATE)
         output_context = template.render(
-            met_name = self.config.MET_MODEL_NAME,
+            met_name = self.config.met_model_name,
             basin_name = self.config.BASIN_MODEL_NAME,
             subbasins = assignments,
             dt = datetime.now()
