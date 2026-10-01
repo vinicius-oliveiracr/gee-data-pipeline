@@ -1,7 +1,7 @@
 import inspect
 import os
 import shutil
-import sys
+import textwrap
 from pathlib import Path
 from dotenv import load_dotenv
 from datetime import datetime
@@ -74,6 +74,7 @@ class DssConfig:
                 project_name=None,
                 gage_file=None,
                 met_file=None,
+                basin_name=None,
                 csv_file=None,
                 control_file=None,
                 start_date=None,
@@ -85,6 +86,7 @@ class DssConfig:
         self.hms_file = hms_file or os.getenv("HMS_FILE")
         self.project_name = project_name or os.getenv("HMS_PROJECT_NAME")
         self.gage_file = gage_file or os.getenv("GAGE_FILE")
+        self.basin_name = basin_name or os.getenv("BASIN_NAME")
         self.met_file = met_file or os.getenv("MET_FILE")
         self.control_file = control_file or os.getenv("CONTROL_FILE")
         self.start_date = parse_date(start_date) if start_date else self.default_start
@@ -124,7 +126,7 @@ class DssConfig:
         self.BASIN_MODEL_NAME = "ParaibaDoSul"
         self.control_name = "control_automatico"
 
-        self.GAGE_TEMPLATE = inspect.cleandoc("""
+        self.GAGE_TEMPLATE = textwrap.dedent("""
      {% for g in gages %}
      Gage: {{ g.name }}
      Description: Gage gerado automaticamente via Python
@@ -141,11 +143,11 @@ class DssConfig:
      End:
      {% endfor %}""")
 
-        self.MET_TEMPLATE = inspect.cleandoc("""
+        self.MET_TEMPLATE = textwrap.dedent("""
      Meteorology: {{ met_name }}
      Description: Met model gerado automaticamente
-     Last Modified Date: {{ dt.strftime('%d %B %Y') }}
-     Last Modified Time: {{ dt.strftime('%H:%M:%S') }}
+     Last Modified Date: {{ date_str }}
+     Last Modified Time: {{ time_str }}
      Version: 4.13
      Unit System: Metric
      Set Missing Data to Default: No
@@ -160,10 +162,10 @@ class DssConfig:
      {% endfor %}
     """)
 
-        self.CONTROL_TEMPLATE = inspect.cleandoc(
+        self.CONTROL_TEMPLATE = textwrap.dedent(
      """Control: {{ control_name }}
-     Last Modified Date: {{ dt.strftime('%d %B %Y') }}
-     Last Modified Time: {{ dt.strftime('%H:%M') }}
+     Last Modified Date: {{ date_str }}
+     Last Modified Time: {{ time_str }}
      Version: 4.13
      Description: Automacao Python TCC
      Start Date: {{ start_date }}

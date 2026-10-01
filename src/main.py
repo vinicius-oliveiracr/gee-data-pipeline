@@ -55,7 +55,7 @@ def dss_workflow(dss_config: DssConfig = None):
         file_generator.generate_control_file()
 
         gage_names = [g['name'] for g in gage_data_list if 'name' in g]
-        file_generator.sync_hms_project(gage_names)
+        file_generator.sync_hms_project()
 
         dss_config.export_to_hec_hms_dir()
 

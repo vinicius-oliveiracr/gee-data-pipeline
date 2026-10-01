@@ -1,7 +1,11 @@
-Control: Control_file
-    Start Date: 01January2018
-    Start Time: 00:00
-    End Date: 31December2022
-    End Time: 00:00
-    Time Interval: 1440
-End:
+Control: control_automatico
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 10:22
+     Version: 4.13
+     Description: Automacao Python TCC
+     Start Date: 01 January 2018
+     Start Time: 00:00
+     End Date: 31 December 2022
+     End Time: 00:00
+     Time Interval: 1440
+     End:
