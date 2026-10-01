@@ -47,7 +47,6 @@ class Config:
         self.dss_file = dss_file or os.getenv("DSS_FILE")
         self.project_name = project_name or os.getenv("PROJECT_NAME")
         self.control_file = control_file or os.getenv("CONTROL_FILE")
-        
         self.gcn_raster_path = os.path.join(BASE_DIR, "assets", "GCN.tif")
         self.api_key = os.getenv("API_KEY")
         self.account = os.getenv("EE_ACCOUNT")
@@ -123,28 +122,29 @@ class DssConfig:
         self.UNITS = "MM"
 
         self.met_model_name = "met_automatico"
-        self.BASIN_MODEL_NAME = "ParaibaDoSul"
         self.control_name = "control_automatico"
-
-        self.GAGE_TEMPLATE = textwrap.dedent("""
-     {% for g in gages %}
-     Gage: {{ g.name }}
-     Description: Gage gerado automaticamente via Python
-     Last Modified Date: {{ g.date }}
-     Last Modified Time: {{ g.time }}
-     Reference Height Unit: Meters
-     Reference Height: 10.0
-     Units: MM
-     Data Type: PER-INC
+        self.GAGE_TEMPLATE = textwrap.dedent("""\
+{% for gage in gages %}
+Gage: {{ gage.name }}
+     Gage: {{ gage.name }}
      Gage Type: Precipitation
-     Precipitation Gage Type: External DSS
-     External DSS File: {{ g.dss_file }}
-     External DSS Pathname: {{ g.dss_path }}
-     End:
-     {% endfor %}""")
+     Last Modified Date: {{ date_str }}
+     Last Modified Time: {{ time_str }}
+     Reference Height Units: {{ gage.height_units | default('Meters') }}
+     Reference Height: {{ gage.height | default('10.0') }}
+     Data Source Type: Manual Entry
+     Filename: {{ gage.dss_file }}
+     Pathname: {{ gage.pathname }}
+     Variant: Variant-1
+        Start Time: {{ gage.start_time }}
+        End Time: {{ gage.end_time }}
+     End Variant: Variant-1
+End:
+
+{% endfor %}""")
 
         self.MET_TEMPLATE = textwrap.dedent("""
-     Meteorology: {{ met_name }}
+Meteorology: {{ met_name }}
      Description: Met model gerado automaticamente
      Last Modified Date: {{ date_str }}
      Last Modified Time: {{ time_str }}
@@ -153,17 +153,16 @@ class DssConfig:
      Set Missing Data to Default: No
      Precipitation Method: Specified Hyetograph
      Use Basin Model: {{ basin_name }}
-     End:
+End:
 
-     {% for item in subbasins %}
-     Subbasin: {{ item.subbasin }}
+{% for item in subbasins %}
+Subbasin: {{ item.subbasin }}
      Precipitation Gage: {{ item.gage }}
-     End:
-     {% endfor %}
-    """)
+End:
+{% endfor %}""")
 
         self.CONTROL_TEMPLATE = textwrap.dedent(
-     """Control: {{ control_name }}
+"""Control: {{ control_name }}
      Last Modified Date: {{ date_str }}
      Last Modified Time: {{ time_str }}
      Version: 4.13
@@ -173,8 +172,7 @@ class DssConfig:
      End Date: {{ end_date }}
      End Time: 00:00
      Time Interval: 1440
-     End:
-     """)
+End:""")
 
     def export_to_hec_hms_dir(self):
         print(f"Copiando arquivos de saída para {self.project_dir}...")
@@ -188,7 +186,7 @@ class DssConfig:
         "description": "automação hidrológica para o tcc",
         "version": "4.13",
         "filepath_separator": "\\",
-        "dss_filename": "tcc.dss",
+        "dss_file": "tcc.dss",
         "timezone": "America/Sao_Paulo",
         "basin": {
             "name": "pds",

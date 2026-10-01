@@ -1,3 +1,5 @@
+from tempfile import template
+
 from jinja2 import Template
 from datetime import datetime
 import logging
@@ -29,30 +31,56 @@ class HmsFileGenerator:
         return date_obj.strftime("%d %B %Y")
    
     def generate_gage_file(self, gages_data: list):
-
-        template = Template(self.config.GAGE_TEMPLATE)
-        output = template.render(gages= gages_data)
-
         if not gages_data:
-            logging.warning("No entry for gage file. ")
+            logging.warning("No entry for gage file.")
             return
-        
+
         now = datetime.now()
         str_date = self._format_hec_date(now)
-        str_time = now.strftime("%H:%M")
+        str_time = now.strftime("%H:%M:%S")
 
+        formatted_gages = []
         for g in gages_data:
-            g['date'] = str_date
-            g['time'] = str_time     
+            gage_name = (
+                g.get("name") if isinstance(g, dict) else getattr(g, "name", "S_1")
+            )
+
+            formatted_gages.append({
+                "name": gage_name,
+                "date": str_date,
+                "time": str_time,
+                "dss_file": self.config.dss_file,
+                "pathname": f"//{gage_name}//{self.config.C_PART}//{self.config.E_PART}//GAGE",
+                "start_time": self.config.start_date.strftime("%d %B %Y %H:%M:%S"),
+                "end_time": self.config.end_date.strftime("%d %B %Y %H:%M:%S"),
+                "height_units": "Meters",
+                "height": "10.0",
+            })
+
+        template = Template(self.config.GAGE_TEMPLATE)
+        output = template.render(
+            gages=formatted_gages, date_str=str_date, time_str=str_time
+        )
 
         try:
-            with open(self.config.gage_file, 'w', encoding="ascii", newline="\r\n") as f:
+            with open(self.config.gage_file, "w", encoding="ascii", newline="\r\n") as f:
                 f.write(output.strip() + "\r\n")
-            logging.info(f"Gage file created successfully at {self.config.gage_file}.")
+                logging.info(
+                    f"Gage file created successfully at {self.config.gage_file}."
+                )
         except IOError as e:
             logging.error(f"Unable to write gage file: {e}")
 
     def generate_met_file(self, subbasins_data: list):
+        if not subbasins_data:
+            logging.warning("No subbasins provided for the meteorological model.")
+            return
+
+        for item in subbasins_data:
+            if "subbasin" not in item or "gage" not in item:
+                logging.error(
+                f"Invalid format in subbasins_data: {item}. Key-value pairs for 'subbasin' and 'gage' are required.")
+    
         template = Template(self.config.MET_TEMPLATE)
         now = datetime.now()
 
@@ -68,9 +96,9 @@ class HmsFileGenerator:
             with open(
                 self.config.met_file, "w", encoding="ascii", newline="\r\n") as f:
                 f.write(content.strip() + "\r\n")
-            logging.info(f"Arquivo .met gerado: {self.config.met_file}")
+            logging.info(f".Meteorology file generated: {self.config.met_file}")
         except IOError as e:
-            logging.error(f"Erro ao escrever .met: {e}")
+            logging.error(f"Error writing .met file: {e}")
 
 
     def generate_control_file(self):
@@ -96,9 +124,9 @@ class HmsFileGenerator:
             with open(
                 self.config.control_file, "w", encoding="ascii", newline="\r\n") as f:
                 f.write(content.strip() + "\r\n")
-            logging.info(f"Arquivo .control gerado: {self.config.control_file}")
+            logging.info(f".Control file generated: {self.config.control_file}")
         except IOError as e:
-            logging.error(f"Erro ao escrever .control: {e}")
+            logging.error(f"Error writing .control file: {e}")
 
     def sync_hms_project(self):
         hms_path = self.config.hms_file

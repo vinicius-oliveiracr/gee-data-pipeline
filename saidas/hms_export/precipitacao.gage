@@ -1,839 +1,1018 @@
 Gage: S_1
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_1/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_1
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_1//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_2
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_2/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_2
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_2//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_3
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_3/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_3
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_3//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_4
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_4/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_4
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_4//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_5
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_5/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_5
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_5//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_6
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_6/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_6
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_6//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_7
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_7/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_7
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_7//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_8
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_8/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_8
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_8//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_9
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_9/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_9
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_9//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_10
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_10/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_10
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_10//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_11
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_11/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_11
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_11//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_12
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_12/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_12
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_12//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_13
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_13/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_13
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_13//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_14
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_14/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_14
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_14//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_15
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_15/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_15
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_15//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_16
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_16/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_16
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_16//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_17
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_17/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_17
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_17//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_18
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_18/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_18
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_18//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_19
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_19/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_19
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_19//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_20
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_20/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_20
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_20//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_21
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_21/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_21
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_21//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_22
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_22/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_22
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_22//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_23
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_23/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_23
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_23//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_24
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_24/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_24
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_24//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_25
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_25/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_25
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_25//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_26
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_26/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_26
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_26//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_27
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_27/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_27
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_27//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_28
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_28/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_28
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_28//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_29
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_29/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_29
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_29//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_30
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_30/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_30
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_30//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_31
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_31/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_31
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_31//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_32
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_32/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_32
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_32//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_33
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_33/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_33
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_33//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_34
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_34/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_34
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_34//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_35
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_35/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_35
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_35//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_36
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_36/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_36
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_36//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_37
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_37/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_37
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_37//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_38
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_38/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_38
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_38//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_39
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_39/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_39
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_39//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_40
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_40/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_40
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_40//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_41
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_41/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_41
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_41//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_42
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_42/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_42
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_42//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_43
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_43/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_43
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_43//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_44
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_44/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_44
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_44//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_45
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_45/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_45
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_45//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_46
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_46/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_46
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_46//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_47
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_47/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_47
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_47//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_48
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_48/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_48
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_48//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_49
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_49/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_49
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_49//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_50
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_50/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_50
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_50//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_51
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_51/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_51
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_51//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_52
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_52/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_52
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_52//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_53
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_53/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_53
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_53//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_54
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_54/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_54
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_54//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_55
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_55/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_55
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_55//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_56
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_56/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_56
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_56//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_57
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_57/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_57
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_57//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_58
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_58/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_58
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_58//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
+
 
 Gage: S_59
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_59/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_59
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_59//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
 
+
 Gage: S_60
-Description: Gage gerado automaticamente via Python
-Last Modified Date: 
-Last Modified Time: 
-Reference Height Unit: Meters
-Reference Height: 10.0
-Units: MM
-Data Type: PER-INC
-Gage Type: Precipitation
-Precipitation Gage Type: External DSS
-External DSS File: dados_chirps.dss
-External DSS Pathname: //S_60/PRECIP-INC///GPM-CHIRPS/
+     Gage: S_60
+     Gage Type: Precipitation
+     Last Modified Date: 01 October 2026
+     Last Modified Time: 14:44:27
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Data Source Type: Manual Entry
+     Filename: /home/vinicius/projects/projects/gee-data-pipeline/saidas/hms_export/dados_chirps.dss
+     Pathname: //S_60//PRECIP-INC//1DAY//1/GAGE
+     Variant: Variant-1
+        Start Time: 01 January 2018 00:00:00
+        End Time: 31 December 2022 00:00:00
+     End Variant: Variant-1
 End:
