@@ -144,7 +144,7 @@ End:
 {% endfor %}""")
 
         self.MET_TEMPLATE = textwrap.dedent("""
-Meteorology: {{ met_name }}
+Meteorology:{{ met_name }}
      Description: Met model gerado automaticamente
      Last Modified Date: {{ date_str }}
      Last Modified Time: {{ time_str }}
@@ -192,7 +192,7 @@ End:""")
             "name": "pds",
             "filename": "pds.basin"
         },
-        "meteorology": {
+        "Meteorology": {
             "name": "met_automatico",
             "filename": "met_automatico.met"
         },

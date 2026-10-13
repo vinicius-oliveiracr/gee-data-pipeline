@@ -4,6 +4,7 @@ from jinja2 import Template
 from datetime import datetime
 import logging
 import os
+import re
 
 class HmsFileGenerator:
     def __init__(self, config):
@@ -129,10 +130,43 @@ class HmsFileGenerator:
             logging.error(f"Error writing .control file: {e}")
 
     def sync_hms_project(self):
-        hms_path = self.config.hms_file
-        if not hms_path or not os.path.exists(hms_path):
-            logging.error(f"HMS file path is invalid or does not exist: {hms_path}")
-            return False
+        hms_path = getattr(self.config, "hms_file", None)
+
+        if not hms_path:
+            project_dir = getattr(self.config, "project_dir", ".")
+            projetct_name = getattr(self.config, "project_name", "tcc")
+            hms_path = os.path.join(project_dir, f"{projetct_name}.hms")
+
+        if not os.path.exists(hms_path):
+            logging.warning(f"HMS file path is invalid or does not exist: {hms_path}")
+            return
+
+        raw_dss = (
+            getattr(self.config, "dss_filename", None)
+            or getattr(self.config, "dss_file", None)
+            or getattr(self.config, "dss_path", "dados_chirps.dss"
+        ))
+
+        target_dss_name = os.path.basename(str(raw_dss))
+
+        try:
+            with open(hms_path, 'r', encoding='ascii') as file:
+                content = file.read()
+                
+            updated_content = re.sub(
+                        r"DSS File Name: .*",
+                        f"DSS File Name: {target_dss_name}",
+                        content,
+                        flags=re.IGNORECASE,
+                    )
+            
+            with open(hms_path, 'w', encoding='ascii', newline='\r\n') as f:
+                f.write(updated_content)
+                logging.info(f".hms file synchronized with DSS file: {target_dss_name}")
+            
+        except IOError as e:
+            logging.error(f"Error while synchronizing .hms file: {e}")
+            return
 
         met_name = self.config.met_model_name
         control_name = (
@@ -152,7 +186,7 @@ class HmsFileGenerator:
 
         if f'Meteorology: {met_name}' not in content:
             met_file = os.path.basename(self.config.met_file)
-            new_blocks.append(f"Meteorology: {met_name}\r\n"
+            new_blocks.append(f"Meteorology:{met_name}\r\n"
                 f"     Filename: {met_file}\r\n"
                 f"     Description: Gerado via automacao Python\r\n"
                 f"     Last Modified Date: {date_str}\r\n"
