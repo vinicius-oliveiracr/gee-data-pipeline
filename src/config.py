@@ -3,6 +3,7 @@ import os
 import shutil
 import textwrap
 from pathlib import Path
+from pathlib import PureWindowsPath
 from dotenv import load_dotenv
 from datetime import datetime
 import logging
@@ -48,6 +49,9 @@ class Config:
         self.project_name = project_name or os.getenv("PROJECT_NAME")
         self.control_file = control_file or os.getenv("CONTROL_FILE")
         self.gcn_raster_path = os.path.join(BASE_DIR, "assets", "GCN.tif")
+        self.gcn_geojson_path = os.path.join(
+            BASE_DIR, "saidas", "subbacias_corrigidas_com_gcn.geojson"
+        )
         self.api_key = os.getenv("API_KEY")
         self.account = os.getenv("EE_ACCOUNT")
         self.private_key_path = os.getenv("PRIVATE_KEY_PATH")
@@ -91,24 +95,38 @@ class DssConfig:
         self.start_date = parse_date(start_date) if start_date else self.default_start
         self.end_date = parse_date(end_date) if end_date else self.default_end
 
+        # Accept Windows paths in .env when the pipeline runs under WSL.
+        windows_path = PureWindowsPath(self.hms_file)
+        if os.name != "nt" and windows_path.drive:
+            drive = windows_path.drive.rstrip(":").lower()
+            self.hms_file = str(Path("/mnt") / drive / Path(*windows_path.parts[1:]))
+
         self.project_dir = os.path.dirname(self.hms_file)
+
+        if not self.basin_name:
+            self.basin_name = "pds"
+        self.basin_file = os.path.join(self.project_dir, f"{self.basin_name}.basin")
 
         hms_basename = os.path.basename(self.hms_file)
         self.project_name = os.getenv("PROJECT_NAME", os.path.splitext(hms_basename)[0])
         
-        self.dss_file = os.path.join(self.project_dir, "dados_chirps.dss")
-        self.gage_file = os.path.join(self.project_dir, "precipitacao.gage")
+        self.dss_file = os.path.join(self.project_dir, "tcc.dss")
+        self.gage_file = os.path.join(self.project_dir, "tcc.gage")
         self.met_file = os.path.join(self.project_dir, "met_automatico.met")
         self.control_file = os.path.join(self.project_dir, "control_automatico.control")
 
         base_dir = Path(__file__).resolve().parent.parent
+        self.gcn_geojson_path = str(
+            base_dir / "saidas" / "subbacias_corrigidas_com_gcn.geojson"
+        )
         self.local_output_dir = base_dir / "saidas" / "hms_export"
         self.local_output_dir.mkdir(parents=True, exist_ok=True)
 
-        self.dss_file = str(self.local_output_dir / "dados_chirps.dss")
-        self.gage_file = str(self.local_output_dir / "precipitacao.gage")
+        self.dss_file = str(self.local_output_dir / "tcc.dss")
+        self.gage_file = str(self.local_output_dir / "tcc.gage")
         self.met_file = str(self.local_output_dir / "met_automatico.met")
         self.control_file = str(self.local_output_dir / "control_automatico.control")
+        self.hms_dss_filename = str(PureWindowsPath("data") / "tcc.dss")
 
         if not all ([self.csv_file, self.dss_file, self.gage_file, self.met_file]):
             print("ERROR: Variables missing (CSV_FILE, DSS_FILE, GAGE_FILE, MET_FILE) at .env file.")
@@ -128,16 +146,22 @@ class DssConfig:
 Gage: {{ gage.name }}
      Gage: {{ gage.name }}
      Gage Type: Precipitation
+     Precipitation Type: Incremental
      Last Modified Date: {{ date_str }}
      Last Modified Time: {{ time_str }}
      Reference Height Units: {{ gage.height_units | default('Meters') }}
      Reference Height: {{ gage.height | default('10.0') }}
-     Data Source Type: Manual Entry
-     Filename: {{ gage.dss_file }}
-     Pathname: {{ gage.pathname }}
+     Units: {{ gage.units }}
+     Data Type: {{ gage.data_type }}
+     Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
-        Start Time: {{ gage.start_time }}
-        End Time: {{ gage.end_time }}
+     Last Variant Modified Date: {{ date_str }}
+     Last Variant Modified Time: {{ time_str }}
+     Default Variant: Yes
+     DSS File Name: {{ gage.dss_file }}
+     DSS Pathname: {{ gage.pathname }}
+     Start Time: {{ gage.start_time }}
+     End Time: {{ gage.end_time }}
      End Variant: Variant-1
 End:
 
@@ -151,13 +175,17 @@ Meteorology:{{ met_name }}
      Version: 4.13
      Unit System: Metric
      Set Missing Data to Default: No
-     Precipitation Method: Specified Hyetograph
+     Precipitation Method: Specified Average
      Use Basin Model: {{ basin_name }}
+End:
+
+Precip Method Parameters: Specified Average
+     Allow Depth Override: No
 End:
 
 {% for item in subbasins %}
 Subbasin: {{ item.subbasin }}
-     Precipitation Gage: {{ item.gage }}
+     Gage: {{ item.gage }}
 End:
 {% endfor %}""")
 
@@ -174,10 +202,27 @@ End:
      Time Interval: 1440
 End:""")
 
+    def build_dss_pathname(self, subbasin_id, date_part=""):
+        """Build a six-part DSS pathname for storage or HEC-HMS references."""
+        parts = (
+            str(subbasin_id),
+            self.B_PART,
+            self.C_PART,
+            date_part,
+            self.E_PART,
+            self.F_PART,
+        )
+        return "/" + "/".join(parts) + "/"
+
     def export_to_hec_hms_dir(self):
         print(f"Copiando arquivos de saída para {self.project_dir}...")
         for src_file in self.local_output_dir.glob("*.*"):
-            dest_file = os.path.join(self.project_dir, src_file.name)
+            if src_file.suffix.lower() == ".dss":
+                data_dir = os.path.join(self.project_dir, "data")
+                os.makedirs(data_dir, exist_ok=True)
+                dest_file = os.path.join(data_dir, src_file.name)
+            else:
+                dest_file = os.path.join(self.project_dir, src_file.name)
             shutil.copy2(src_file, dest_file)
         print("✅ Files exported with success to HEC-HMS!")
 
@@ -201,5 +246,5 @@ End:""")
             "filename": "control_automatico.control"
         },
         "gages": [f"S_{i}" for i in range(1, 61)],
-        "gage_filename": "precipitacao.gage"
+        "gage_filename": "tcc.gage"
     }

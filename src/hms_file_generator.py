@@ -50,12 +50,14 @@ class HmsFileGenerator:
                 "name": gage_name,
                 "date": str_date,
                 "time": str_time,
-                "dss_file": self.config.dss_file,
-                "pathname": f"//{gage_name}//{self.config.C_PART}//{self.config.E_PART}//GAGE",
+                "dss_file": self.config.hms_dss_filename,
+                "pathname": g.get("dss_path") if isinstance(g, dict) else None,
                 "start_time": self.config.start_date.strftime("%d %B %Y %H:%M:%S"),
                 "end_time": self.config.end_date.strftime("%d %B %Y %H:%M:%S"),
                 "height_units": "Meters",
                 "height": "10.0",
+                "units": self.config.UNITS,
+                "data_type": self.config.DATA_TYPE,
             })
 
         template = Template(self.config.GAGE_TEMPLATE)
@@ -129,6 +131,96 @@ class HmsFileGenerator:
         except IOError as e:
             logging.error(f"Error writing .control file: {e}")
 
+    def update_basin_curve_numbers(self):
+        """Apply each GeoJSON GCN value to its matching HEC-HMS subbasin."""
+        import geopandas as gpd
+
+        basin_path = self.config.basin_file
+        geojson_path = self.config.gcn_geojson_path
+        if not os.path.isfile(basin_path):
+            raise FileNotFoundError(f"HEC-HMS basin file not found: {basin_path}")
+        if not os.path.isfile(geojson_path):
+            raise FileNotFoundError(f"Subbasin GCN GeoJSON not found: {geojson_path}")
+
+        geojson = gpd.read_file(geojson_path)
+        if "name" not in geojson.columns or "gcn" not in geojson.columns:
+            raise ValueError("GCN GeoJSON must contain 'name' and 'gcn' properties.")
+
+        curve_numbers = {}
+        for name, value in zip(geojson["name"], geojson["gcn"]):
+            if not name or name in curve_numbers:
+                raise ValueError(f"Missing or duplicate subbasin name in GCN GeoJSON: {name!r}")
+            curve_number = float(value)
+            if not 0 < curve_number <= 100:
+                raise ValueError(f"Curve Number for {name} is outside (0, 100]: {curve_number}")
+            curve_numbers[name] = curve_number
+
+        with open(basin_path, "r", encoding="ascii", errors="strict", newline="") as basin_file:
+            original_content = basin_file.read()
+
+        lines = original_content.splitlines()
+        updated_names = set()
+        index = 0
+        while index < len(lines):
+            match = re.fullmatch(r"Subbasin:\s*(.+?)\s*", lines[index])
+            if not match:
+                index += 1
+                continue
+
+            subbasin_name = match.group(1)
+            end_index = index + 1
+            while end_index < len(lines) and lines[end_index].strip() != "End:":
+                end_index += 1
+            if end_index == len(lines):
+                raise ValueError(f"Unterminated subbasin block in {basin_path}: {subbasin_name}")
+
+            if subbasin_name in curve_numbers:
+                updated_names.add(subbasin_name)
+                block = lines[index + 1:end_index]
+                loss_index = next(
+                    (i for i, line in enumerate(block) if re.match(r"\s*LossRate:", line)),
+                    None,
+                )
+                if loss_index is None:
+                    raise ValueError(f"LossRate field missing for {subbasin_name} in {basin_path}")
+
+                indent = re.match(r"\s*", block[loss_index]).group(0)
+                block[loss_index] = f"{indent}LossRate: SCS Curve Number"
+                block = [
+                    line for line in block
+                    if not re.match(r"\s*(?:Initial Abstraction|Curve Number):", line)
+                ]
+                loss_index = next(i for i, line in enumerate(block)
+                                  if re.match(r"\s*LossRate:", line))
+                block.insert(loss_index + 1, f"{indent}Curve Number: {curve_numbers[subbasin_name]:.6f}")
+                lines[index + 1:end_index] = block
+                end_index = index + len(block) + 1
+            index = end_index + 1
+
+        missing_names = set(curve_numbers) - updated_names
+        if missing_names:
+            raise ValueError(
+                "GeoJSON subbasins have no matching elements in HEC-HMS basin file: "
+                + ", ".join(sorted(missing_names))
+            )
+
+        basin_names = set(re.findall(r"^Subbasin:\s*(.+?)\s*$", original_content, re.MULTILINE))
+        unmatched_basin_names = basin_names - set(curve_numbers)
+        if unmatched_basin_names:
+            raise ValueError(
+                "HEC-HMS subbasins have no Curve Number in GeoJSON: "
+                + ", ".join(sorted(unmatched_basin_names))
+            )
+
+        updated_content = "\r\n".join(lines) + "\r\n"
+        if updated_content != original_content:
+            with open(basin_path, "w", encoding="ascii", newline="") as basin_file:
+                basin_file.write(updated_content)
+        logging.info(
+            "Applied SCS Curve Number to %d HEC-HMS subbasins in %s.",
+            len(updated_names), basin_path,
+        )
+
     def sync_hms_project(self):
         hms_path = getattr(self.config, "hms_file", None)
 
@@ -139,33 +231,6 @@ class HmsFileGenerator:
 
         if not os.path.exists(hms_path):
             logging.warning(f"HMS file path is invalid or does not exist: {hms_path}")
-            return
-
-        raw_dss = (
-            getattr(self.config, "dss_filename", None)
-            or getattr(self.config, "dss_file", None)
-            or getattr(self.config, "dss_path", "dados_chirps.dss"
-        ))
-
-        target_dss_name = os.path.basename(str(raw_dss))
-
-        try:
-            with open(hms_path, 'r', encoding='ascii') as file:
-                content = file.read()
-                
-            updated_content = re.sub(
-                        r"DSS File Name: .*",
-                        f"DSS File Name: {target_dss_name}",
-                        content,
-                        flags=re.IGNORECASE,
-                    )
-            
-            with open(hms_path, 'w', encoding='ascii', newline='\r\n') as f:
-                f.write(updated_content)
-                logging.info(f".hms file synchronized with DSS file: {target_dss_name}")
-            
-        except IOError as e:
-            logging.error(f"Error while synchronizing .hms file: {e}")
             return
 
         met_name = self.config.met_model_name
@@ -180,33 +245,56 @@ class HmsFileGenerator:
         time_str = datetime.now().strftime("%H:%M")
 
         with open(hms_path, 'r', encoding='ascii', errors='ignore') as file:
-            content = file.read()
+            original_content = file.read()
+        content = original_content
 
-        new_blocks = []
+        # HEC-HMS registers a meteorologic model under the Precipitation
+        # identifier in the project file. Remove the old invalid block before
+        # synchronizing so existing projects are repaired and reruns stay clean.
+        lines = content.splitlines()
+        cleaned_lines = []
+        generated_headers = {
+            f"Precipitation: {met_name}",
+            f"Control: {control_name}",
+            f"Control:{control_name}",
+        }
+        skipping_generated_block = False
+        for line in lines:
+            stripped_line = line.strip()
+            if stripped_line.startswith("Meteorology:") or stripped_line in generated_headers:
+                skipping_generated_block = True
+                continue
+            if skipping_generated_block:
+                if line.strip() == "End:":
+                    skipping_generated_block = False
+                continue
+            cleaned_lines.append(line)
+        content = "\n".join(cleaned_lines).rstrip()
 
-        if f'Meteorology: {met_name}' not in content:
-            met_file = os.path.basename(self.config.met_file)
-            new_blocks.append(f"Meteorology:{met_name}\r\n"
-                f"     Filename: {met_file}\r\n"
-                f"     Description: Gerado via automacao Python\r\n"
-                f"     Last Modified Date: {date_str}\r\n"
-                f"     Last Modified Time: {time_str}\r\n"
-                f"End:\r\n"
-            )
+        met_file = os.path.basename(self.config.met_file)
+        control_file = os.path.basename(self.config.control_file)
+        new_blocks = [
+            f"Precipitation: {met_name}\n"
+            f"     Filename: {met_file}\n"
+            f"     Description: Gerado via automacao Python\n"
+            f"     Last Modified Date: {date_str}\n"
+            f"     Last Modified Time: {time_str}\n"
+            f"End:\n",
+            f"Control: {control_name}\n"
+            f"     Filename: {control_file}\n"
+            f"     Description: Gerado via automacao Python\n"
+            f"     Last Modified Date: {date_str}\n"
+            f"     Last Modified Time: {time_str}\n"
+            f"End:\n",
+        ]
 
-        if f'Control: {control_name}' not in content:
-            control_file = os.path.basename(self.config.control_file)
-            new_blocks.append(f"Control:{control_name}\r\n"
-                f"     Filename: {control_file}\r\n"
-                f"     Description: Gerado via automacao Python\r\n"
-                f"     Last Modified Date: {date_str}\r\n"
-                f"     Last Modified Time: {time_str}\r\n"
-                f"End:\r\n"
-            )
-
+        updated_content = content.rstrip()
         if new_blocks:
-            with open(hms_path, 'a', encoding='ascii', newline='\r\n') as f:
-                f.write("\r\n" + "\r\n".join(new_blocks))
+            updated_content += "\n\n" + "\n".join(new_blocks).rstrip()
+
+        if updated_content != original_content.rstrip():
+            with open(hms_path, 'w', encoding='ascii', newline='\r\n') as f:
+                f.write(updated_content + "\n")
             logging.info(".hms file updated and synchronized with success!")
         else:
             logging.info("All components were already registered in the .hms file.")

@@ -74,17 +74,25 @@ class Geoprocessor:
     def run_zonal_stats(self, gdf_wgs84):
         with rasterio.open(self.config.gcn_raster_path) as src:
             raster_crs = src.crs
+            raster_nodata = src.nodata
 
         gdf_proj = gdf_wgs84.to_crs(raster_crs).copy()
         gcn_stats = zonal_stats(
             gdf_proj,
             self.config.gcn_raster_path,
             stats = ['mean'],
-            geojson_out=True,
-            nodata=0
+            nodata=raster_nodata,
         )
 
-        gdf_proj['gcn'] = [stat['properties']['mean'] if stat['properties']['mean'] is not None else 0 for stat in gcn_stats]
-        gdf_proj.to_file("saidas/subbacias_corrigidas_com_gcn.geojson", driver="GeoJSON")
+        gcn_values = [stat['mean'] for stat in gcn_stats]
+        invalid_values = [value for value in gcn_values if value is None or not 0 < value <= 100]
+        if invalid_values:
+            raise ValueError(
+                "GCN raster produced missing or out-of-range subbasin values: "
+                f"{invalid_values}"
+            )
+
+        gdf_proj['gcn'] = gcn_values
+        gdf_proj.to_file(self.config.gcn_geojson_path, driver="GeoJSON")
         print("Zonal statistics saved successfully.")
         

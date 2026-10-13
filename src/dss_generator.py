@@ -22,13 +22,17 @@ class DssGenerator:
         
     def _extract_metadata_only(self) -> list:
         try:
-            df = pd.read_csv(self.config.csv_file)
+            df = pd.read_csv(self.config.csv_file, parse_dates=['date'])
+            df = df[
+                (df['date'] >= self.config.start_date)
+                & (df['date'] <= self.config.end_date)
+            ]
             subbasins = df['raster_val'].unique()
             logging.info(f"Subbasins found on CSV: {subbasins}")
             gage_entries = []
 
             for i, sub_id in enumerate(sorted(subbasins)):
-                pathname_ref = f"//S_{sub_id}/{self.config.C_PART}///{self.config.F_PART}/"
+                pathname_ref = self.config.build_dss_pathname(sub_id)
 
                 gage_entries.append({
                     "id":f"Gage-{i}",
@@ -75,16 +79,10 @@ class DssGenerator:
                 values = sub_df['precipitation'].values.astype(float)
                 start_date = sub_df['date'].iloc[0]
 
-                pathname_save = (
-                            f"/{sub_id}/{self.config.B_PART}/{self.config.C_PART}/"
-                            f"{start_date.strftime('%d%b%Y').upper()}/"
-                            f"{self.config.E_PART}/{self.config.F_PART}/"
-                        )
-                
-                pathname_ref = (
-                            f"/{sub_id}/{self.config.B_PART}/{self.config.C_PART}/"
-                            f"/1Day/{self.config.F_PART}/"
-                        )
+                pathname_save = self.config.build_dss_pathname(
+                    sub_id, start_date.strftime('%d%b%Y')
+                )
+                pathname_ref = self.config.build_dss_pathname(sub_id)
                 
                 tsc = self.build_tsc(pathname_save, start_date, values)
 

@@ -50,6 +50,7 @@ def dss_workflow(dss_config: DssConfig = None):
             return
 
         file_generator = HmsFileGenerator(dss_config)
+        file_generator.update_basin_curve_numbers()
         file_generator.generate_gage_file(gage_data_list)
 
         subbasins_data = [{
