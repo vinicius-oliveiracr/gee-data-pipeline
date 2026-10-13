@@ -1,0 +1,255 @@
+Meteorology:met_automatico
+     Description: Met model gerado automaticamente
+     Last Modified Date: 13 October 2026
+     Last Modified Time: 16:34:37
+     Version: 4.13
+     Unit System: Metric
+     Set Missing Data to Default: No
+     Precipitation Method: Specified Average
+     Use Basin Model: pds
+End:
+
+Precip Method Parameters: Specified Average
+     Allow Depth Override: No
+End:
+
+
+Subbasin: Subbasin-1
+     Gage: S_1
+End:
+
+Subbasin: Subbasin-2
+     Gage: S_2
+End:
+
+Subbasin: Subbasin-3
+     Gage: S_3
+End:
+
+Subbasin: Subbasin-4
+     Gage: S_4
+End:
+
+Subbasin: Subbasin-5
+     Gage: S_5
+End:
+
+Subbasin: Subbasin-6
+     Gage: S_6
+End:
+
+Subbasin: Subbasin-7
+     Gage: S_7
+End:
+
+Subbasin: Subbasin-8
+     Gage: S_8
+End:
+
+Subbasin: Subbasin-9
+     Gage: S_9
+End:
+
+Subbasin: Subbasin-10
+     Gage: S_10
+End:
+
+Subbasin: Subbasin-11
+     Gage: S_11
+End:
+
+Subbasin: Subbasin-12
+     Gage: S_12
+End:
+
+Subbasin: Subbasin-13
+     Gage: S_13
+End:
+
+Subbasin: Subbasin-14
+     Gage: S_14
+End:
+
+Subbasin: Subbasin-15
+     Gage: S_15
+End:
+
+Subbasin: Subbasin-16
+     Gage: S_16
+End:
+
+Subbasin: Subbasin-17
+     Gage: S_17
+End:
+
+Subbasin: Subbasin-18
+     Gage: S_18
+End:
+
+Subbasin: Subbasin-19
+     Gage: S_19
+End:
+
+Subbasin: Subbasin-20
+     Gage: S_20
+End:
+
+Subbasin: Subbasin-21
+     Gage: S_21
+End:
+
+Subbasin: Subbasin-22
+     Gage: S_22
+End:
+
+Subbasin: Subbasin-23
+     Gage: S_23
+End:
+
+Subbasin: Subbasin-24
+     Gage: S_24
+End:
+
+Subbasin: Subbasin-25
+     Gage: S_25
+End:
+
+Subbasin: Subbasin-26
+     Gage: S_26
+End:
+
+Subbasin: Subbasin-27
+     Gage: S_27
+End:
+
+Subbasin: Subbasin-28
+     Gage: S_28
+End:
+
+Subbasin: Subbasin-29
+     Gage: S_29
+End:
+
+Subbasin: Subbasin-30
+     Gage: S_30
+End:
+
+Subbasin: Subbasin-31
+     Gage: S_31
+End:
+
+Subbasin: Subbasin-32
+     Gage: S_32
+End:
+
+Subbasin: Subbasin-33
+     Gage: S_33
+End:
+
+Subbasin: Subbasin-34
+     Gage: S_34
+End:
+
+Subbasin: Subbasin-35
+     Gage: S_35
+End:
+
+Subbasin: Subbasin-36
+     Gage: S_36
+End:
+
+Subbasin: Subbasin-37
+     Gage: S_37
+End:
+
+Subbasin: Subbasin-38
+     Gage: S_38
+End:
+
+Subbasin: Subbasin-39
+     Gage: S_39
+End:
+
+Subbasin: Subbasin-40
+     Gage: S_40
+End:
+
+Subbasin: Subbasin-41
+     Gage: S_41
+End:
+
+Subbasin: Subbasin-42
+     Gage: S_42
+End:
+
+Subbasin: Subbasin-43
+     Gage: S_43
+End:
+
+Subbasin: Subbasin-44
+     Gage: S_44
+End:
+
+Subbasin: Subbasin-45
+     Gage: S_45
+End:
+
+Subbasin: Subbasin-46
+     Gage: S_46
+End:
+
+Subbasin: Subbasin-47
+     Gage: S_47
+End:
+
+Subbasin: Subbasin-48
+     Gage: S_48
+End:
+
+Subbasin: Subbasin-49
+     Gage: S_49
+End:
+
+Subbasin: Subbasin-50
+     Gage: S_50
+End:
+
+Subbasin: Subbasin-51
+     Gage: S_51
+End:
+
+Subbasin: Subbasin-52
+     Gage: S_52
+End:
+
+Subbasin: Subbasin-53
+     Gage: S_53
+End:
+
+Subbasin: Subbasin-54
+     Gage: S_54
+End:
+
+Subbasin: Subbasin-55
+     Gage: S_55
+End:
+
+Subbasin: Subbasin-56
+     Gage: S_56
+End:
+
+Subbasin: Subbasin-57
+     Gage: S_57
+End:
+
+Subbasin: Subbasin-58
+     Gage: S_58
+End:
+
+Subbasin: Subbasin-59
+     Gage: S_59
+End:
+
+Subbasin: Subbasin-60
+     Gage: S_60
+End:

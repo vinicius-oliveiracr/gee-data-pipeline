@@ -29,14 +29,14 @@ def gee_workflow(config: Config = None):
         downloader = PrecipitationDownloader(config)
         downloader.download_data(gdf_wgs84)
 
-        logging.info("\n Script finalized successfully.")
+        logging.info("\n GEE workflow finalized successfully.\n")
     except Exception as e:
         logging.error(f"Fatal error at workflow: {e}")
         raise e
 
     
 def dss_workflow(dss_config: DssConfig = None):
-    logging.info("DSS/HMS automation proccess initialized.")
+    logging.info("DSS/HMS automation proccess initialized.\n")
 
     try:
         if dss_config is None:
@@ -50,11 +50,25 @@ def dss_workflow(dss_config: DssConfig = None):
             return
 
         file_generator = HmsFileGenerator(dss_config)
+        file_generator.update_basin_curve_numbers()
         file_generator.generate_gage_file(gage_data_list)
-        file_generator.generate_met_file(gage_data_list)
+
+        subbasins_data = [{
+        "subbasin": f"Subbasin-{i+1}",
+        "gage": gage_data_list[i].get("name")
+        or gage_data_list[i].get("id")
+        or f"S_{i+1}",
+        }
+    for i in range(min(len(gage_data_list), 60))]
+
+        file_generator.generate_met_file(subbasins_data)
         file_generator.generate_control_file()
 
-        logging.info(f"Generating all files for {len(gage_data_list)} subbasins.")
+        file_generator.sync_hms_project()
+
+        dss_config.export_to_hec_hms_dir()
+
+        logging.info(f"Generating all files for {len(subbasins_data)} subbasins and {len(gage_data_list)} gages.")
         logging.info("Process finalized successfully.")
 
     except Exception as e:

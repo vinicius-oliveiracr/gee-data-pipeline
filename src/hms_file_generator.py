@@ -1,8 +1,10 @@
+from tempfile import template
+
 from jinja2 import Template
 from datetime import datetime
 import logging
-import locale
 import os
+import re
 
 class HmsFileGenerator:
     def __init__(self, config):
@@ -11,93 +13,289 @@ class HmsFileGenerator:
 
     def _format_hec_date(self, date_obj):
         months = {
-            1: "January", 2: "February", 3: "March", 4: "April", 5: "May", 6: "June",
-            7: "July", 8: "August", 9: "September", 10: "October", 11: "November", 12: "December"
+            1: "January",
+            2: "February",
+            3: "March",
+            4: "April",
+            5: "May",
+            6: "June",
+            7: "July",
+            8: "August",
+            9: "September",
+            10: "October",
+            11: "November",
+            12: "December"
         }
 
-        return f"{date_obj.day:02d}{months[date_obj.month]}{date_obj.year}"
-
-    def generate_gage_file(self, gage_data: list):
-        if not gage_data:
-            logging.warning("No entry for gage file. ")
+        if isinstance(date_obj, str):
+            return date_obj
+        return date_obj.strftime("%d %B %Y")
+   
+    def generate_gage_file(self, gages_data: list):
+        if not gages_data:
+            logging.warning("No entry for gage file.")
             return
-        
+
         now = datetime.now()
         str_date = self._format_hec_date(now)
-        str_time = now.strftime("%H:%M")
+        str_time = now.strftime("%H:%M:%S")
 
-        for g in gage_data:
-            g['date'] = str_date
-            g['time'] = str_time
+        formatted_gages = []
+        for g in gages_data:
+            gage_name = (
+                g.get("name") if isinstance(g, dict) else getattr(g, "name", "S_1")
+            )
+
+            formatted_gages.append({
+                "name": gage_name,
+                "date": str_date,
+                "time": str_time,
+                "dss_file": self.config.hms_dss_filename,
+                "pathname": g.get("dss_path") if isinstance(g, dict) else None,
+                "start_time": self.config.start_date.strftime("%d %B %Y %H:%M:%S"),
+                "end_time": self.config.end_date.strftime("%d %B %Y %H:%M:%S"),
+                "height_units": "Meters",
+                "height": "10.0",
+                "units": self.config.UNITS,
+                "data_type": self.config.DATA_TYPE,
+            })
 
         template = Template(self.config.GAGE_TEMPLATE)
-        output = template.render(gages= gage_data)
+        output = template.render(
+            gages=formatted_gages, date_str=str_date, time_str=str_time
+        )
 
         try:
-            with open(self.config.gage_file, 'w') as f:
-                f.write(output)
-            logging.info(f"Gage file created successfully at {self.config.gage_file}.")
+            with open(self.config.gage_file, "w", encoding="ascii", newline="\r\n") as f:
+                f.write(output.strip() + "\r\n")
+                logging.info(
+                    f"Gage file created successfully at {self.config.gage_file}."
+                )
         except IOError as e:
             logging.error(f"Unable to write gage file: {e}")
 
-    def generate_met_file(self, gage_data: list):
-        if not gage_data:
-            logging.warning("No subbasin found. Met file will not be created.")
+    def generate_met_file(self, subbasins_data: list):
+        if not subbasins_data:
+            logging.warning("No subbasins provided for the meteorological model.")
             return
-        
-        assignments = []
-        
-        for entry in gage_data:
-            try:
-                subbasin_id = entry['name'].split('_')[-1]
-                
-                assignments.append({
-                    'subbasin': f"Subbasin-{subbasin_id}",
-                    "gage": entry['name']
-                })
-            except Exception as e:
-                logging.warning(f"Error processing gage '{entry['name']}': {e}")
-        
 
+        for item in subbasins_data:
+            if "subbasin" not in item or "gage" not in item:
+                logging.error(
+                f"Invalid format in subbasins_data: {item}. Key-value pairs for 'subbasin' and 'gage' are required.")
+    
         template = Template(self.config.MET_TEMPLATE)
-        output_context = template.render(
-            met_name = self.config.MET_MODEL_NAME,
-            basin_name = self.config.BASIN_MODEL_NAME,
-            subbasins = assignments,
-            dt = datetime.now()
+        now = datetime.now()
+
+        content = template.render(
+            met_name=self.config.met_model_name,
+            basin_name=self.config.basin_name,
+            date_str=self._format_hec_date(now),
+            time_str=now.strftime("%H:%M:%S"),
+            subbasins=subbasins_data,
         )
 
-        output_context = output_context.replace('\xa0', ' ')
-        output_context = output_context.replace('\nend', '\nEnd')
-        lines = [line.rstrip() for line in output_context.splitlines() if line.strip()]
-
-        final_content = "\r\n".join(lines) + "\r\n"
-
         try:
-            with open(self.config.met_file, 'w', encoding='ascii', newline='\r\n') as file:
-                file.write(final_content)
-                logging.info(f"Met file created successfully at {self.config.met_file}.")
+            with open(
+                self.config.met_file, "w", encoding="ascii", newline="\r\n") as f:
+                f.write(content.strip() + "\r\n")
+            logging.info(f".Meteorology file generated: {self.config.met_file}")
         except IOError as e:
-            logging.error(f"Writing met file failed: {e}")
+            logging.error(f"Error writing .met file: {e}")
+
 
     def generate_control_file(self):
-        start_str = self._format_hec_date(self.config.start_date)
-        end_str = self._format_hec_date(self.config.end_date)
 
-        control_content = f"""Control: Control_file
-    Start Date: {start_str}
-    Start Time: 00:00
-    End Date: {end_str}
-    End Time: 00:00
-    Time Interval: 1440
-End:
-"""
-            
+        template = Template(self.config.CONTROL_TEMPLATE)
+        now = datetime.now()
+
+        control_name = (
+            os.path.basename(self.config.control_file)
+            .replace(".control", "")
+            .strip()
+        )
+
+        content = template.render(
+            control_name=control_name,
+            date_str=self._format_hec_date(now),
+            time_str=now.strftime("%H:%M"),
+            start_date=self._format_hec_date(self.config.start_date),
+            end_date=self._format_hec_date(self.config.end_date),
+        )
+
         try:
-            with open(self.config.control_file, 'w') as f:
-                f.write(control_content)
-            logging.info(f"Control file created successfully: {self.config.control_file}")
-        except UnicodeEncodeError:
-            logging.error("Error: Non-ASCII characters found in basin or gage name.")
+            with open(
+                self.config.control_file, "w", encoding="ascii", newline="\r\n") as f:
+                f.write(content.strip() + "\r\n")
+            logging.info(f".Control file generated: {self.config.control_file}")
         except IOError as e:
-            logging.error(f"Failed to create control file: {e}.")
+            logging.error(f"Error writing .control file: {e}")
+
+    def update_basin_curve_numbers(self):
+        """Apply each GeoJSON GCN value to its matching HEC-HMS subbasin."""
+        import geopandas as gpd
+
+        basin_path = self.config.basin_file
+        geojson_path = self.config.gcn_geojson_path
+        if not os.path.isfile(basin_path):
+            raise FileNotFoundError(f"HEC-HMS basin file not found: {basin_path}")
+        if not os.path.isfile(geojson_path):
+            raise FileNotFoundError(f"Subbasin GCN GeoJSON not found: {geojson_path}")
+
+        geojson = gpd.read_file(geojson_path)
+        if "name" not in geojson.columns or "gcn" not in geojson.columns:
+            raise ValueError("GCN GeoJSON must contain 'name' and 'gcn' properties.")
+
+        curve_numbers = {}
+        for name, value in zip(geojson["name"], geojson["gcn"]):
+            if not name or name in curve_numbers:
+                raise ValueError(f"Missing or duplicate subbasin name in GCN GeoJSON: {name!r}")
+            curve_number = float(value)
+            if not 0 < curve_number <= 100:
+                raise ValueError(f"Curve Number for {name} is outside (0, 100]: {curve_number}")
+            curve_numbers[name] = curve_number
+
+        with open(basin_path, "r", encoding="ascii", errors="strict", newline="") as basin_file:
+            original_content = basin_file.read()
+
+        lines = original_content.splitlines()
+        updated_names = set()
+        index = 0
+        while index < len(lines):
+            match = re.fullmatch(r"Subbasin:\s*(.+?)\s*", lines[index])
+            if not match:
+                index += 1
+                continue
+
+            subbasin_name = match.group(1)
+            end_index = index + 1
+            while end_index < len(lines) and lines[end_index].strip() != "End:":
+                end_index += 1
+            if end_index == len(lines):
+                raise ValueError(f"Unterminated subbasin block in {basin_path}: {subbasin_name}")
+
+            if subbasin_name in curve_numbers:
+                updated_names.add(subbasin_name)
+                block = lines[index + 1:end_index]
+                loss_index = next(
+                    (i for i, line in enumerate(block) if re.match(r"\s*LossRate:", line)),
+                    None,
+                )
+                if loss_index is None:
+                    raise ValueError(f"LossRate field missing for {subbasin_name} in {basin_path}")
+
+                indent = re.match(r"\s*", block[loss_index]).group(0)
+                block[loss_index] = f"{indent}LossRate: SCS Curve Number"
+                block = [
+                    line for line in block
+                    if not re.match(r"\s*(?:Initial Abstraction|Curve Number):", line)
+                ]
+                loss_index = next(i for i, line in enumerate(block)
+                                  if re.match(r"\s*LossRate:", line))
+                block.insert(loss_index + 1, f"{indent}Curve Number: {curve_numbers[subbasin_name]:.6f}")
+                lines[index + 1:end_index] = block
+                end_index = index + len(block) + 1
+            index = end_index + 1
+
+        missing_names = set(curve_numbers) - updated_names
+        if missing_names:
+            raise ValueError(
+                "GeoJSON subbasins have no matching elements in HEC-HMS basin file: "
+                + ", ".join(sorted(missing_names))
+            )
+
+        basin_names = set(re.findall(r"^Subbasin:\s*(.+?)\s*$", original_content, re.MULTILINE))
+        unmatched_basin_names = basin_names - set(curve_numbers)
+        if unmatched_basin_names:
+            raise ValueError(
+                "HEC-HMS subbasins have no Curve Number in GeoJSON: "
+                + ", ".join(sorted(unmatched_basin_names))
+            )
+
+        updated_content = "\r\n".join(lines) + "\r\n"
+        if updated_content != original_content:
+            with open(basin_path, "w", encoding="ascii", newline="") as basin_file:
+                basin_file.write(updated_content)
+        logging.info(
+            "Applied SCS Curve Number to %d HEC-HMS subbasins in %s.",
+            len(updated_names), basin_path,
+        )
+
+    def sync_hms_project(self):
+        hms_path = getattr(self.config, "hms_file", None)
+
+        if not hms_path:
+            project_dir = getattr(self.config, "project_dir", ".")
+            projetct_name = getattr(self.config, "project_name", "tcc")
+            hms_path = os.path.join(project_dir, f"{projetct_name}.hms")
+
+        if not os.path.exists(hms_path):
+            logging.warning(f"HMS file path is invalid or does not exist: {hms_path}")
+            return
+
+        met_name = self.config.met_model_name
+        control_name = (
+          os.path.basename(self.config.control_file)
+          .replace(".control", "")
+          .strip()
+      )
+
+        now = datetime.now()
+        date_str = self._format_hec_date(datetime.now())
+        time_str = datetime.now().strftime("%H:%M")
+
+        with open(hms_path, 'r', encoding='ascii', errors='ignore') as file:
+            original_content = file.read()
+        content = original_content
+
+        # HEC-HMS registers a meteorologic model under the Precipitation
+        # identifier in the project file. Remove the old invalid block before
+        # synchronizing so existing projects are repaired and reruns stay clean.
+        lines = content.splitlines()
+        cleaned_lines = []
+        generated_headers = {
+            f"Precipitation: {met_name}",
+            f"Control: {control_name}",
+            f"Control:{control_name}",
+        }
+        skipping_generated_block = False
+        for line in lines:
+            stripped_line = line.strip()
+            if stripped_line.startswith("Meteorology:") or stripped_line in generated_headers:
+                skipping_generated_block = True
+                continue
+            if skipping_generated_block:
+                if line.strip() == "End:":
+                    skipping_generated_block = False
+                continue
+            cleaned_lines.append(line)
+        content = "\n".join(cleaned_lines).rstrip()
+
+        met_file = os.path.basename(self.config.met_file)
+        control_file = os.path.basename(self.config.control_file)
+        new_blocks = [
+            f"Precipitation: {met_name}\n"
+            f"     Filename: {met_file}\n"
+            f"     Description: Gerado via automacao Python\n"
+            f"     Last Modified Date: {date_str}\n"
+            f"     Last Modified Time: {time_str}\n"
+            f"End:\n",
+            f"Control: {control_name}\n"
+            f"     Filename: {control_file}\n"
+            f"     Description: Gerado via automacao Python\n"
+            f"     Last Modified Date: {date_str}\n"
+            f"     Last Modified Time: {time_str}\n"
+            f"End:\n",
+        ]
+
+        updated_content = content.rstrip()
+        if new_blocks:
+            updated_content += "\n\n" + "\n".join(new_blocks).rstrip()
+
+        if updated_content != original_content.rstrip():
+            with open(hms_path, 'w', encoding='ascii', newline='\r\n') as f:
+                f.write(updated_content + "\n")
+            logging.info(".hms file updated and synchronized with success!")
+        else:
+            logging.info("All components were already registered in the .hms file.")
+        return True
