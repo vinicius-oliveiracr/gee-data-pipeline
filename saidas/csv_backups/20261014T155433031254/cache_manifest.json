@@ -1,0 +1,14 @@
+{
+  "parameters": {
+    "band": "precipitation",
+    "block_days": 30,
+    "collection": "UCSB-CHG/CHIRPS/DAILY",
+    "end_date_inclusive": "2022-12-31",
+    "geometry_crs": "EPSG:4326",
+    "geometry_sha256": "750998332c4529de948afc363e07aa3503de98399ae403401727aee7b1024d9f",
+    "reducer": "weighted_mean",
+    "scale_meters": 5000,
+    "schema_version": 1,
+    "start_date": "2018-01-01"
+  }
+}

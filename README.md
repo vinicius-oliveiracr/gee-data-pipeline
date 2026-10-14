@@ -46,3 +46,9 @@ To improve performance and avoid Google Earth Engine API limitations, the time r
 - Time-series processing and validation
 - Automated generation of DSS and HEC-HMS input files
 - Modular and reproducible architecture
+
+## Precipitation cache and backups
+
+The GEE extraction scale is configured with `PRECIPITATION_SCALE` (meters; defaults to `5000`). The cache manifest in `saidas/csv_blocks/cache_manifest.json` records the scale, date range, CHIRPS collection and band, block size, and a fingerprint of the subbasin geometries.
+
+When these parameters change, existing precipitation blocks and the unified CSV are copied to a timestamped directory under `saidas/csv_backups/` before the precipitation blocks are re-extracted. The previous unified CSV stays available until all new blocks pass validation and the replacement is ready. When parameters are unchanged, no backup is created on a normal run. If a block is missing from the active cache, the pipeline can restore it from a backup only when its recorded extraction parameters match and the block passes daily coverage and value validation. If newly retrieved data changes the unified CSV, the prior unified CSV is backed up before replacement. A legacy cache without a manifest is treated as having unknown parameters and archived before reuse; blocks in such a backup cannot be safely reused automatically because their extraction settings are unknown.

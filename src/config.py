@@ -44,6 +44,10 @@ class Config:
             logging.error(f"Erro ao converter data: {e}")
             raise e
 
+        self.precipitation_scale = int(os.getenv("PRECIPITATION_SCALE", "5000"))
+        if self.precipitation_scale <= 0:
+            raise ValueError("PRECIPITATION_SCALE must be a positive number of meters.")
+
         self.old_gage_file = old_gage_file or os.getenv("OLD_GAGE_FILE")
         self.dss_file = dss_file or os.getenv("DSS_FILE")
         self.project_name = project_name or os.getenv("PROJECT_NAME")
