@@ -64,3 +64,9 @@ Optional environment variables:
 - `SRTM_MARGIN_M`: margin around the input geometry bounds in meters; defaults to `5000`.
 
 The GeoTIFF is an elevation input for HEC-HMS terrain processing. It does not by itself create the stream network, basin outlets, or downstream connections; prepare and review those in HEC-HMS before simulation.
+
+## HEC-HMS project outputs
+
+When using `python src/gui.py`, select the target `.hms` project. The filename without its `.hms` extension is the canonical project name for generated files. For example, selecting `Bacia Norte.hms` produces `Bacia Norte.dss`, `Bacia Norte.gage`, `Bacia Norte.met`, and `Bacia Norte.control`. The DSS is exported to the project's `data/` directory, and the generated HEC-HMS references use that same filename. Intermediate output is kept in a project-specific folder under `saidas/hms_export/` to avoid collisions between projects.
+
+The `.basin` filename is still selected by `BASIN_NAME` (default: `pds`), because its name is not necessarily the same as the `.hms` project filename. Configure `CSV_FILE`, `BASIN_NAME`, and the GEE settings in the environment as needed before running the workflow.

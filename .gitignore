@@ -18,3 +18,6 @@ env
 credentials.json
 RELATORIO_CORRECAO_AVISOS_HEC_HMS.md
 *.bak
+saidas/terrain
+srtm_bacia.tif
+saidas/terrain/srtm_bacia.tif

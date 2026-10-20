@@ -1,5 +1,3 @@
-from tempfile import template
-
 from jinja2 import Template
 from datetime import datetime
 from datetime import timedelta

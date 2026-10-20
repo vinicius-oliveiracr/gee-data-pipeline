@@ -96,15 +96,13 @@ class DssConfig:
         self.default_start = datetime(2018, 1, 1)
         self.default_end = datetime(2022, 12, 31)
         self.csv_file = csv_file or os.getenv("CSV_FILE")
-        self.dss_file = dss_file or os.getenv("DSS_FILE")
         self.hms_file = hms_file or os.getenv("HMS_FILE")
-        self.project_name = project_name or os.getenv("HMS_PROJECT_NAME")
-        self.gage_file = gage_file or os.getenv("GAGE_FILE")
         self.basin_name = basin_name or os.getenv("BASIN_NAME")
-        self.met_file = met_file or os.getenv("MET_FILE")
-        self.control_file = control_file or os.getenv("CONTROL_FILE")
         self.start_date = parse_date(start_date) if start_date else self.default_start
         self.end_date = parse_date(end_date) if end_date else self.default_end
+
+        if not self.hms_file:
+            raise ValueError("Selecione ou configure o arquivo do projeto HEC-HMS (.hms).")
 
         # Accept Windows paths in .env when the pipeline runs under WSL.
         windows_path = PureWindowsPath(self.hms_file)
@@ -112,35 +110,44 @@ class DssConfig:
             drive = windows_path.drive.rstrip(":").lower()
             self.hms_file = str(Path("/mnt") / drive / Path(*windows_path.parts[1:]))
 
+        self.hms_file = os.path.abspath(os.path.expanduser(self.hms_file))
+        if not self.hms_file.lower().endswith(".hms"):
+            raise ValueError(f"O arquivo do projeto deve ter extensão .hms: {self.hms_file}")
+        if not os.path.isfile(self.hms_file):
+            raise FileNotFoundError(f"Arquivo HEC-HMS não encontrado: {self.hms_file}")
+
         self.project_dir = os.path.dirname(self.hms_file)
+        self.project_name = os.path.splitext(os.path.basename(self.hms_file))[0]
+        try:
+            self.project_name.encode("ascii")
+        except UnicodeEncodeError as error:
+            raise ValueError(
+                "O nome do projeto HMS precisa usar caracteres ASCII para os arquivos HEC-HMS gerados."
+            ) from error
+        if project_name and project_name != self.project_name:
+            logging.warning(
+                "PROJECT_NAME/HMS_PROJECT_NAME ignorado; o nome do projeto será derivado do arquivo .hms."
+            )
 
         if not self.basin_name:
             self.basin_name = "pds"
         self.basin_file = os.path.join(self.project_dir, f"{self.basin_name}.basin")
 
-        hms_basename = os.path.basename(self.hms_file)
-        self.project_name = os.getenv("PROJECT_NAME", os.path.splitext(hms_basename)[0])
-        
-        self.dss_file = os.path.join(self.project_dir, "tcc.dss")
-        self.gage_file = os.path.join(self.project_dir, "tcc.gage")
-        self.met_file = os.path.join(self.project_dir, "met_automatico.met")
-        self.control_file = os.path.join(self.project_dir, "control_automatico.control")
-
         base_dir = Path(__file__).resolve().parent.parent
         self.gcn_geojson_path = str(
             base_dir / "saidas" / "subbacias_corrigidas_com_gcn.geojson"
         )
-        self.local_output_dir = base_dir / "saidas" / "hms_export"
+        self.local_output_dir = base_dir / "saidas" / "hms_export" / self.project_name
         self.local_output_dir.mkdir(parents=True, exist_ok=True)
 
-        self.dss_file = str(self.local_output_dir / "tcc.dss")
-        self.gage_file = str(self.local_output_dir / "tcc.gage")
-        self.met_file = str(self.local_output_dir / "met_automatico.met")
-        self.control_file = str(self.local_output_dir / "control_automatico.control")
-        self.hms_dss_filename = str(PureWindowsPath("data") / "tcc.dss")
+        self.dss_file = str(self.local_output_dir / f"{self.project_name}.dss")
+        self.gage_file = str(self.local_output_dir / f"{self.project_name}.gage")
+        self.met_file = str(self.local_output_dir / f"{self.project_name}.met")
+        self.control_file = str(self.local_output_dir / f"{self.project_name}.control")
+        self.hms_dss_filename = str(PureWindowsPath("data") / f"{self.project_name}.dss")
 
-        if not all ([self.csv_file, self.dss_file, self.gage_file, self.met_file]):
-            print("ERROR: Variables missing (CSV_FILE, DSS_FILE, GAGE_FILE, MET_FILE) at .env file.")
+        if not self.csv_file:
+            logging.warning("CSV_FILE is not configured; DSS generation will require a CSV path.")
 
         self.B_PART = "PRECIP"
         self.C_PART = "PRECIP-INC"       
@@ -150,8 +157,8 @@ class DssConfig:
         self.DATA_TYPE = "PER-INC"
         self.UNITS = "MM"
 
-        self.met_model_name = "met_automatico"
-        self.control_name = "control_automatico"
+        self.met_model_name = self.project_name
+        self.control_name = self.project_name
         self.GAGE_TEMPLATE = textwrap.dedent("""\
 {% for gage in gages %}
 Gage: {{ gage.name }}

@@ -1,7 +1,8 @@
 import logging
 import threading
 import tkinter as tk
-from tkinter import ttk, scrolledtext, messagebox
+from tkinter import ttk, scrolledtext, messagebox, filedialog
+from config import DssConfig
 from main import gee_workflow, dss_workflow
 
 
@@ -30,6 +31,19 @@ class InterfaceWorkflow:
         self.root = root
         self.root.title("Monitor de Processamento GEE & DSS")
         self.root.geometry("600x450")
+
+        self.hms_file = tk.StringVar()
+        hms_frame = ttk.Frame(root)
+        hms_frame.pack(fill="x", padx=15, pady=(12, 4))
+        ttk.Label(hms_frame, text="Projeto HEC-HMS (.hms):").pack(anchor="w")
+        file_row = ttk.Frame(hms_frame)
+        file_row.pack(fill="x", pady=(4, 0))
+        ttk.Entry(file_row, textvariable=self.hms_file, state="readonly").pack(
+            side="left", fill="x", expand=True
+        )
+        ttk.Button(file_row, text="Selecionar...", command=self.selecionar_hms).pack(
+            side="left", padx=(8, 0)
+        )
 
         # Botão para Iniciar o Processamento
         self.btn_run = tk.Button(
@@ -68,22 +82,41 @@ class InterfaceWorkflow:
         logger.addHandler(handler_gui)
 
     def iniciar_thread_processamento(self):
+        selected_hms = self.hms_file.get()
+        if not selected_hms:
+            messagebox.showwarning("Projeto necessário", "Selecione o arquivo .hms do projeto.")
+            return
+
+        try:
+            dss_config = DssConfig(hms_file=selected_hms)
+        except (ValueError, FileNotFoundError) as error:
+            messagebox.showerror("Projeto inválido", str(error))
+            return
+
         # Desativa o botão e inicia a animação de progresso
         self.btn_run.config(state='disabled')
         self.progress_bar.start(10)
         
         # Executa as funções pesadas numa thread separada
-        thread = threading.Thread(target=self.executar_workflows)
+        thread = threading.Thread(target=self.executar_workflows, args=(dss_config,))
         thread.daemon = True  # Encerra a thread caso a janela seja fechada
         thread.start()
 
-    def executar_workflows(self):
+    def selecionar_hms(self):
+        path = filedialog.askopenfilename(
+            title="Selecione o projeto HEC-HMS",
+            filetypes=[("Projetos HEC-HMS", "*.hms"), ("Todos os arquivos", "*.*")],
+        )
+        if path:
+            self.hms_file.set(path)
+
+    def executar_workflows(self, dss_config):
         try:
             logging.info("Iniciando o processo do Google Earth Engine (gee_workflow)...")
             gee_workflow()
             
             logging.info("Iniciando a geração do arquivo DSS (dss_workflow)...")
-            dss_workflow()
+            dss_workflow(dss_config)
 
             logging.info("--- TODO O PROCESSAMENTO FOI CONCLUÍDO COM SUCESSO! ---")
             self.root.after(0, lambda: messagebox.showinfo("Sucesso", "Workflows executados com sucesso!"))
