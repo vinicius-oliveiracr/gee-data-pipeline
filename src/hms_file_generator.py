@@ -181,21 +181,60 @@ class HmsFileGenerator:
                 updated_names.add(subbasin_name)
                 block = lines[index + 1:end_index]
                 loss_index = next(
-                    (i for i, line in enumerate(block) if re.match(r"\s*LossRate:", line)),
+                    (i for i, line in enumerate(block)
+                     if re.match(r"\s*LossRate\s*:", line, re.IGNORECASE)),
                     None,
                 )
                 if loss_index is None:
                     raise ValueError(f"LossRate field missing for {subbasin_name} in {basin_path}")
 
                 indent = re.match(r"\s*", block[loss_index]).group(0)
-                block[loss_index] = f"{indent}LossRate: SCS Curve Number"
-                block = [
-                    line for line in block
-                    if not re.match(r"\s*(?:Initial Abstraction|Curve Number):", line)
-                ]
+                # HEC-HMS stores the SCS Curve Number loss method as "SCS"
+                # in the .basin file, even though the UI shows its full name.
+                block[loss_index] = f"{indent}LossRate: SCS"
+                impervious_percent = 0.0
+                found_impervious = False
+                normalized_block = []
+                for line in block:
+                    impervious_match = re.match(
+                        r"\s*(?:Percent\s*Impervious(?:\s*Area)?|percentimperviousarea)\s*:\s*(.*?)\s*$",
+                        line,
+                        re.IGNORECASE,
+                    )
+                    if impervious_match:
+                        # Prefer the recognized field if both it and a legacy alias exist.
+                        value = impervious_match.group(1)
+                        if not found_impervious or re.match(
+                            r"\s*Percent\s+Impervious\s*:", line, re.IGNORECASE
+                        ):
+                            try:
+                                impervious_percent = float(value)
+                            except ValueError as exc:
+                                raise ValueError(
+                                    f"Invalid impervious percentage for {subbasin_name}: {value!r}"
+                                ) from exc
+                            found_impervious = True
+                        continue
+
+                    # Remove Curve Number aliases so the generated value occurs once.
+                    if re.match(r"\s*Curve\s*Number\s*:", line, re.IGNORECASE):
+                        continue
+                    normalized_block.append(line)
+
+                if not 0 <= impervious_percent <= 100:
+                    raise ValueError(
+                        f"Percent impervious for {subbasin_name} is outside [0, 100]: "
+                        f"{impervious_percent}"
+                    )
+
+                block = normalized_block
                 loss_index = next(i for i, line in enumerate(block)
-                                  if re.match(r"\s*LossRate:", line))
+                                  if re.match(r"\s*LossRate\s*:", line, re.IGNORECASE))
                 block.insert(loss_index + 1, f"{indent}Curve Number: {curve_numbers[subbasin_name]:.6f}")
+                block.insert(
+                    loss_index + 2,
+                    f"{indent}Percent Impervious Area: {impervious_percent:.6f}",
+                )
                 lines[index + 1:end_index] = block
                 end_index = index + len(block) + 1
             index = end_index + 1

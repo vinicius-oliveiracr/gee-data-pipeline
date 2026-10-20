@@ -52,3 +52,15 @@ To improve performance and avoid Google Earth Engine API limitations, the time r
 The GEE extraction scale is configured with `PRECIPITATION_SCALE` (meters; defaults to `5000`). The cache manifest in `saidas/csv_blocks/cache_manifest.json` records the scale, date range, CHIRPS collection and band, block size, and a fingerprint of the subbasin geometries.
 
 When these parameters change, existing precipitation blocks and the unified CSV are copied to a timestamped directory under `saidas/csv_backups/` before the precipitation blocks are re-extracted. The previous unified CSV stays available until all new blocks pass validation and the replacement is ready. When parameters are unchanged, no backup is created on a normal run. If a block is missing from the active cache, the pipeline can restore it from a backup only when its recorded extraction parameters match and the block passes daily coverage and value validation. If newly retrieved data changes the unified CSV, the prior unified CSV is backed up before replacement. A legacy cache without a manifest is treated as having unknown parameters and archived before reuse; blocks in such a backup cannot be safely reused automatically because their extraction settings are unknown.
+
+## SRTM terrain export
+
+The GEE workflow also downloads the `USGS/SRTMGL1_003` elevation band and mosaics it into `saidas/terrain/srtm_bacia.tif`. The export covers the basin shapefile bounds plus a 5,000 m margin and is reprojected to the estimated UTM CRS at 30 m resolution. The download uses small GeoTIFF tiles and does not change the existing `subbasins_UTM.shp` or `subbasin_mask.tif` outputs.
+
+Optional environment variables:
+
+- `SRTM_OUTPUT_PATH`: output GeoTIFF path; defaults to `EXIT_PATH/terrain/srtm_bacia.tif`.
+- `SRTM_SCALE`: output resolution in meters; defaults to `30`.
+- `SRTM_MARGIN_M`: margin around the input geometry bounds in meters; defaults to `5000`.
+
+The GeoTIFF is an elevation input for HEC-HMS terrain processing. It does not by itself create the stream network, basin outlets, or downstream connections; prepare and review those in HEC-HMS before simulation.

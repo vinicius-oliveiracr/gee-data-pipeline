@@ -16,3 +16,5 @@ projeto_antigo_backup.gage
 .vscode
 env
 credentials.json
+RELATORIO_CORRECAO_AVISOS_HEC_HMS.md
+*.bak
