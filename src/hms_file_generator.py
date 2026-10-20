@@ -2,6 +2,7 @@ from tempfile import template
 
 from jinja2 import Template
 from datetime import datetime
+from datetime import timedelta
 import logging
 import os
 import re
@@ -53,7 +54,7 @@ class HmsFileGenerator:
                 "dss_file": self.config.hms_dss_filename,
                 "pathname": g.get("dss_path") if isinstance(g, dict) else None,
                 "start_time": self.config.start_date.strftime("%d %B %Y %H:%M:%S"),
-                "end_time": self.config.end_date.strftime("%d %B %Y %H:%M:%S"),
+                "end_time": (self.config.end_date + timedelta(days=1)).strftime("%d %B %Y %H:%M:%S"),
                 "height_units": "Meters",
                 "height": "10.0",
                 "units": self.config.UNITS,
@@ -120,7 +121,9 @@ class HmsFileGenerator:
             date_str=self._format_hec_date(now),
             time_str=now.strftime("%H:%M"),
             start_date=self._format_hec_date(self.config.start_date),
-            end_date=self._format_hec_date(self.config.end_date),
+            # The control window is a half-open interval. Close it at
+            # midnight after the final included daily precipitation value.
+            end_date=self._format_hec_date(self.config.end_date + timedelta(days=1)),
         )
 
         try:

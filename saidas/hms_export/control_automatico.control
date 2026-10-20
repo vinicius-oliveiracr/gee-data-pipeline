@@ -1,11 +1,11 @@
 Control: control_automatico
-     Last Modified Date: 13 October 2026
-     Last Modified Time: 16:34
+     Last Modified Date: 14 October 2026
+     Last Modified Time: 16:24
      Version: 4.13
      Description: Automacao Python TCC
      Start Date: 01 January 2018
      Start Time: 00:00
-     End Date: 31 December 2022
+     End Date: 01 January 2023
      End Time: 00:00
      Time Interval: 1440
 End:
