@@ -53,13 +53,6 @@ class Config:
         self.project_name = project_name or os.getenv("PROJECT_NAME")
         self.control_file = control_file or os.getenv("CONTROL_FILE")
         self.gcn_raster_path = os.path.join(BASE_DIR, "assets", "GCN.tif")
-        self.srtm_output_path = os.getenv("SRTM_OUTPUT_PATH")
-        self.srtm_scale = int(os.getenv("SRTM_SCALE", "30"))
-        self.srtm_margin_m = float(os.getenv("SRTM_MARGIN_M", "5000"))
-        if self.srtm_scale <= 0:
-            raise ValueError("SRTM_SCALE must be a positive number of meters.")
-        if self.srtm_margin_m < 0:
-            raise ValueError("SRTM_MARGIN_M cannot be negative.")
         self.gcn_geojson_path = os.path.join(
             BASE_DIR, "saidas", "subbacias_corrigidas_com_gcn.geojson"
         )
