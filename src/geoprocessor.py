@@ -1,17 +1,10 @@
 import geopandas as gpd
-import numpy as np
 import rasterio
-from rasterio.merge import merge
 from rasterio.features import rasterize
 from rasterio.transform import from_bounds
 from rasterstats import zonal_stats
-import ee
-import math
 import os
 import sys
-import tempfile
-import time
-from urllib.request import urlretrieve
 
 class Geoprocessor:
     def __init__(self, config):
@@ -21,7 +14,6 @@ class Geoprocessor:
     def run_all(self):
         try:
             gdf_wgs84 = self.process_geodataframe()
-            self.download_srtm_dem(gdf_wgs84)
             self.run_zonal_stats(gdf_wgs84)
 
             return gdf_wgs84
@@ -29,98 +21,36 @@ class Geoprocessor:
             print(f"Fatal error in geoprocessing: {e}.")
             sys.exit(1)
 
-    def download_srtm_dem(self, gdf_wgs84):
-        """Download and mosaic a buffered SRTM DEM without changing basin outputs."""
-        gdf_m = gdf_wgs84.to_crs(gdf_wgs84.estimate_utm_crs())
-        crs = gdf_m.crs.to_string()
-        minx, miny, maxx, maxy = gdf_m.total_bounds
-        margin = self.config.srtm_margin_m
-        minx, miny = minx - margin, miny - margin
-        maxx, maxy = maxx + margin, maxy + margin
-
-        output_path = self.config.srtm_output_path or os.path.join(
-            self.config.exit_path, "terrain", "srtm_bacia.tif"
-        )
-        os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)
-        scale = self.config.srtm_scale
-        tile_size_m = 30000
-        dem = ee.Image("USGS/SRTMGL1_003").select("elevation")
-        tile_paths = []
-
-        print(
-            f"Downloading SRTM at {scale} m in {crs}; "
-            f"output: {output_path}"
-        )
-
-        with tempfile.TemporaryDirectory(prefix="srtm_tiles_") as temp_dir:
-            columns = math.ceil((maxx - minx) / tile_size_m)
-            rows = math.ceil((maxy - miny) / tile_size_m)
-
-            for row in range(rows):
-                y0 = miny + row * tile_size_m
-                y1 = min(y0 + tile_size_m, maxy)
-                for column in range(columns):
-                    x0 = minx + column * tile_size_m
-                    x1 = min(x0 + tile_size_m, maxx)
-                    region = ee.Geometry.Rectangle(
-                        [x0, y0, x1, y1], proj=crs, geodesic=False
-                    )
-                    tile_path = os.path.join(
-                        temp_dir, f"srtm_{row:03d}_{column:03d}.tif"
-                    )
-                    url = dem.getDownloadURL({
-                        "name": f"srtm_{row}_{column}",
-                        "bands": ["elevation"],
-                        "region": region,
-                        "crs": crs,
-                        "scale": scale,
-                        "format": "GEO_TIFF",
-                    })
-
-                    for attempt in range(3):
-                        try:
-                            urlretrieve(url, tile_path)
-                            break
-                        except Exception:
-                            if attempt == 2:
-                                raise
-                            time.sleep(2 ** attempt)
-
-                    tile_paths.append(tile_path)
-                    print(f"Downloaded SRTM tile {row + 1}/{rows}, {column + 1}/{columns}.")
-
-            sources = []
-            try:
-                # Keep all tile datasets open while rasterio mosaics them.
-                sources = [rasterio.open(path) for path in tile_paths]
-                tile_crs = sources[0].crs
-                mosaic, transform = merge(sources, nodata=sources[0].nodata)
-                profile = sources[0].profile.copy()
-                profile.update(
-                    driver="GTiff",
-                    height=mosaic.shape[1],
-                    width=mosaic.shape[2],
-                    transform=transform,
-                    crs=tile_crs,
-                    count=1,
-                    compress="deflate",
-                    tiled=True,
-                )
-                with rasterio.open(output_path, "w", **profile) as dst:
-                    dst.write(mosaic)
-            finally:
-                for source in sources:
-                    source.close()
-
-        print(f"SRTM GeoTIFF saved: {output_path}")
-
     def process_geodataframe(self):
         gdf = gpd.read_file(self.config.shp_path)
+        if gdf.empty:
+            raise ValueError("The subbasin shapefile contains no features.")
+        if gdf.crs is None:
+            raise ValueError("The subbasin shapefile must define a CRS.")
+        if "name" not in gdf.columns:
+            raise ValueError("The HEC-HMS subbasin shapefile must contain a 'name' field.")
+
+        names = gdf["name"].astype("string").str.strip()
+        if names.isna().any() or names.eq("").any():
+            raise ValueError("Every HEC-HMS subbasin must have a non-empty name.")
+        if names.str.casefold().duplicated().any():
+            duplicates = sorted(names[names.str.casefold().duplicated(keep=False)].unique())
+            raise ValueError(f"HEC-HMS subbasin names must be unique: {duplicates}")
+        gdf["name"] = names
+
         gdf_wgs84 = gdf.to_crs("EPSG:4326")
         gdf_wgs84['geometry'] = gdf_wgs84['geometry'].buffer(0)
+        invalid_geometry = gdf_wgs84.geometry.is_empty | gdf_wgs84.geometry.isna()
+        if invalid_geometry.any():
+            raise ValueError("The subbasin shapefile contains empty geometries.")
 
-        if "raster_val" not in gdf_wgs84.columns:
-            gdf_wgs84['raster_val'] = np.arange(1, len(gdf_wgs84) + 1)
+        # IDs are derived from HMS names, not shapefile row order, so GEE, CSV,
+        # masks, and DSS keep the same basin identity across exports.
+        id_by_name = {
+            name: raster_val
+            for raster_val, name in enumerate(sorted(gdf_wgs84["name"].tolist()), start=1)
+        }
+        gdf_wgs84["raster_val"] = gdf_wgs84["name"].map(id_by_name).astype("int64")
         
         geojson_filename = "subbasins-pds.geojson"
         gdf_wgs84.to_file(geojson_filename, driver="GeoJSON")

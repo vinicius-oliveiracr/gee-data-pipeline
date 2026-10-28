@@ -54,12 +54,9 @@ def dss_workflow(dss_config: DssConfig = None):
         file_generator.generate_gage_file(gage_data_list)
 
         subbasins_data = [{
-        "subbasin": f"Subbasin-{i+1}",
-        "gage": gage_data_list[i].get("name")
-        or gage_data_list[i].get("id")
-        or f"S_{i+1}",
-        }
-    for i in range(min(len(gage_data_list), 60))]
+            "subbasin": item["subbasin"],
+            "gage": item["name"],
+        } for item in gage_data_list]
 
         file_generator.generate_met_file(subbasins_data)
         file_generator.generate_control_file()

@@ -56,6 +56,7 @@ class DssGenerator:
                     gage_entries.append({
                         "id": f"Gage-{i}",
                         "name": f"S_{sub_id}",
+                        "subbasin": str(sub_df["name"].iloc[0]),
                         "dss_file": os.path.basename(dss_path),
                         "dss_path": pathname_ref
                     })
@@ -83,12 +84,20 @@ class DssGenerator:
     def _read_validated_period(self):
         """Load the requested inclusive period and require one daily value per basin."""
         df = pd.read_csv(self.config.csv_file, parse_dates=['date'])
-        required_columns = {'date', 'raster_val', 'precipitation'}
+        required_columns = {'date', 'raster_val', 'name', 'precipitation'}
         missing_columns = required_columns - set(df.columns)
         if missing_columns:
             raise ValueError(f"CSV is missing required columns: {sorted(missing_columns)}")
-        if df['date'].isna().any() or df['raster_val'].isna().any():
-            raise ValueError("CSV contains rows with missing dates or subbasin identifiers.")
+        if df['date'].isna().any() or df['raster_val'].isna().any() or df['name'].isna().any():
+            raise ValueError("CSV contains rows with missing dates, IDs, or HEC-HMS names.")
+
+        df["name"] = df["name"].astype("string").str.strip()
+        if df["name"].eq("").any():
+            raise ValueError("CSV contains empty HEC-HMS subbasin names.")
+        names_per_id = df.groupby("raster_val")["name"].nunique()
+        ids_per_name = df.groupby("name")["raster_val"].nunique()
+        if (names_per_id != 1).any() or (ids_per_name != 1).any():
+            raise ValueError("CSV must preserve a one-to-one mapping between subbasin IDs and HEC-HMS names.")
 
         # Compare normalized calendar days, but reject times that would make
         # otherwise identical daily records ambiguous.
