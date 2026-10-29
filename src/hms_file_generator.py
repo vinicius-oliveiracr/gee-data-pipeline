@@ -78,6 +78,8 @@ class HmsFileGenerator:
             logging.warning("No subbasins provided for the meteorological model.")
             return
 
+        subbasin_names = []
+        gage_names = []
         for item in subbasins_data:
             if "subbasin" not in item or "gage" not in item:
                 logging.error(
@@ -166,9 +168,12 @@ class HmsFileGenerator:
         geojson = gpd.read_file(geojson_path)
         if "name" not in geojson.columns or "gcn" not in geojson.columns:
             raise ValueError("GCN GeoJSON must contain 'name' and 'gcn' properties.")
+        if geojson["name"].isna().any():
+            raise ValueError("GCN GeoJSON contains subbasins without HEC-HMS names.")
 
         curve_numbers = {}
         for name, value in zip(geojson["name"], geojson["gcn"]):
+            name = str(name).strip()
             if not name or name in curve_numbers:
                 raise ValueError(f"Missing or duplicate subbasin name in GCN GeoJSON: {name!r}")
             curve_number = float(value)
