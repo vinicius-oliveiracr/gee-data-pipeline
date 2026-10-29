@@ -82,6 +82,26 @@ class HmsFileGenerator:
             if "subbasin" not in item or "gage" not in item:
                 logging.error(
                 f"Invalid format in subbasins_data: {item}. Key-value pairs for 'subbasin' and 'gage' are required.")
+
+        subbasin_names = [item["subbasin"] for item in subbasins_data]
+        gage_names = [item["gage"] for item in subbasins_data]
+        if len(set(subbasin_names)) != len(subbasin_names):
+            raise ValueError("Meteorology data contains duplicate subbasin names.")
+        if len(set(gage_names)) != len(gage_names):
+            raise ValueError("Meteorology data contains duplicate gage names.")
+
+        basin_path = self.config.basin_file
+        if os.path.isfile(basin_path):
+            with open(basin_path, "r", encoding="ascii", errors="strict") as basin_file:
+                basin_names = set(re.findall(
+                    r"^Subbasin:\s*(.+?)\s*$", basin_file.read(), re.MULTILINE
+                ))
+            if set(subbasin_names) != basin_names:
+                raise ValueError(
+                    "Meteorology subbasins do not match the HEC-HMS basin model; "
+                    f"missing={sorted(basin_names - set(subbasin_names))}, "
+                    f"unexpected={sorted(set(subbasin_names) - basin_names)}."
+                )
     
         template = Template(self.config.MET_TEMPLATE)
         now = datetime.now()

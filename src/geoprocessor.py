@@ -21,7 +21,6 @@ class Geoprocessor:
     def run_all(self):
         try:
             gdf_wgs84 = self.process_geodataframe()
-            self.download_srtm_dem(gdf_wgs84)
             self.run_zonal_stats(gdf_wgs84)
 
             return gdf_wgs84
@@ -116,11 +115,37 @@ class Geoprocessor:
 
     def process_geodataframe(self):
         gdf = gpd.read_file(self.config.shp_path)
+        if "name" not in gdf.columns:
+            raise ValueError("Subbasin shapefile must contain a 'name' field (S1, S2, ...).")
+
+        names = gdf["name"].astype(str).str.strip()
+        parsed_ids = names.str.extract(r"(?i)^S_?(\d+)$", expand=False)
+        if parsed_ids.isna().any():
+            invalid_names = names[parsed_ids.isna()].head(10).tolist()
+            raise ValueError(
+                "Subbasin names must use the S1, S2, ... format; invalid names: "
+                + ", ".join(invalid_names)
+            )
+
+        subbasin_ids = parsed_ids.astype(int)
+        if names.duplicated().any() or subbasin_ids.duplicated().any():
+            raise ValueError("Subbasin names/IDs must be unique.")
+
+        expected_ids = set(range(1, len(gdf) + 1))
+        actual_ids = set(subbasin_ids)
+        if actual_ids != expected_ids:
+            raise ValueError(
+                "Subbasin IDs must be contiguous from S1 to S<N>; "
+                f"missing={sorted(expected_ids - actual_ids)}, "
+                f"unexpected={sorted(actual_ids - expected_ids)}."
+            )
+
+        # Keep precipitation IDs tied to the HEC-HMS subbasin suffix, not
+        # shapefile row order: S1 always maps to raster_val 1, S2 to 2, etc.
+        gdf["name"] = [f"S{sub_id}" for sub_id in subbasin_ids]
+        gdf["raster_val"] = subbasin_ids.to_numpy(dtype=np.int64)
         gdf_wgs84 = gdf.to_crs("EPSG:4326")
         gdf_wgs84['geometry'] = gdf_wgs84['geometry'].buffer(0)
-
-        if "raster_val" not in gdf_wgs84.columns:
-            gdf_wgs84['raster_val'] = np.arange(1, len(gdf_wgs84) + 1)
         
         geojson_filename = "subbasins-pds.geojson"
         gdf_wgs84.to_file(geojson_filename, driver="GeoJSON")

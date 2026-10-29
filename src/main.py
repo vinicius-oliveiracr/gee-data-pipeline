@@ -1,5 +1,6 @@
 import sys
 import logging
+import re
 from config import Config, DssConfig
 from auth import initialize_gee
 from geoprocessor import Geoprocessor
@@ -53,13 +54,48 @@ def dss_workflow(dss_config: DssConfig = None):
         file_generator.update_basin_curve_numbers()
         file_generator.generate_gage_file(gage_data_list)
 
-        subbasins_data = [{
-        "subbasin": f"Subbasin-{i+1}",
-        "gage": gage_data_list[i].get("name")
-        or gage_data_list[i].get("id")
-        or f"S_{i+1}",
-        }
-    for i in range(min(len(gage_data_list), 60))]
+        subbasins_data = []
+        seen_ids = set()
+        for gage in gage_data_list:
+            gage_name = gage.get("name")
+            match = re.fullmatch(r"S_(\d+)", str(gage_name or ""))
+            if not match:
+                raise ValueError(
+                    f"Unexpected gage name {gage_name!r}; expected S_<subbasin ID>."
+                )
+
+            subbasin_id = int(match.group(1))
+            if subbasin_id in seen_ids:
+                raise ValueError(f"Duplicate precipitation gage for S{subbasin_id}.")
+            seen_ids.add(subbasin_id)
+
+            subbasin_name = gage.get("subbasin")
+            expected_subbasin_name = f"S{subbasin_id}"
+            if subbasin_name != expected_subbasin_name:
+                raise ValueError(
+                    f"Gage {gage_name} belongs to {subbasin_name!r}; "
+                    f"expected {expected_subbasin_name!r}."
+                )
+
+            expected_dss_path = dss_config.build_dss_pathname(subbasin_id)
+            if gage.get("dss_path") != expected_dss_path:
+                raise ValueError(
+                    f"Gage {gage_name} references {gage.get('dss_path')!r}; "
+                    f"expected {expected_dss_path!r}."
+                )
+
+            subbasins_data.append({
+                "subbasin": subbasin_name,
+                "gage": gage_name,
+            })
+
+        expected_ids = set(range(1, len(subbasins_data) + 1))
+        if seen_ids != expected_ids:
+            raise ValueError(
+                "Precipitation gages must cover subbasins S1 through S<N>; "
+                f"missing={sorted(expected_ids - seen_ids)}, "
+                f"unexpected={sorted(seen_ids - expected_ids)}."
+            )
 
         file_generator.generate_met_file(subbasins_data)
         file_generator.generate_control_file()

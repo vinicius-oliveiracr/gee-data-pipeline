@@ -56,6 +56,7 @@ class DssGenerator:
                     gage_entries.append({
                         "id": f"Gage-{i}",
                         "name": f"S_{sub_id}",
+                        "subbasin": str(sub_df["name"].iloc[0]),
                         "dss_file": os.path.basename(dss_path),
                         "dss_path": pathname_ref
                     })
@@ -83,12 +84,27 @@ class DssGenerator:
     def _read_validated_period(self):
         """Load the requested inclusive period and require one daily value per basin."""
         df = pd.read_csv(self.config.csv_file, parse_dates=['date'])
-        required_columns = {'date', 'raster_val', 'precipitation'}
+        required_columns = {'date', 'raster_val', 'name', 'precipitation'}
         missing_columns = required_columns - set(df.columns)
         if missing_columns:
             raise ValueError(f"CSV is missing required columns: {sorted(missing_columns)}")
-        if df['date'].isna().any() or df['raster_val'].isna().any():
-            raise ValueError("CSV contains rows with missing dates or subbasin identifiers.")
+        if df['date'].isna().any() or df['raster_val'].isna().any() or df['name'].isna().any():
+            raise ValueError("CSV contains rows with missing dates, IDs, or HEC-HMS names.")
+
+        df["raster_val"] = pd.to_numeric(df["raster_val"], errors="coerce")
+        raster_ids = df["raster_val"].to_numpy(dtype=np.float64)
+        if not np.isfinite(raster_ids).all() or (raster_ids <= 0).any() or (raster_ids % 1 != 0).any():
+            raise ValueError("CSV contains invalid subbasin IDs.")
+        df["raster_val"] = df["raster_val"].astype("int64")
+        df["name"] = df["name"].astype("string").str.strip()
+        if df["name"].eq("").any():
+            raise ValueError("CSV contains empty HEC-HMS subbasin names.")
+        names_per_id = df.groupby("raster_val")["name"].agg(set)
+        ids_per_name = df.groupby("name")["raster_val"].nunique()
+        if any(names != {f"S{sub_id}"} for sub_id, names in names_per_id.items()) or (ids_per_name != 1).any():
+            raise ValueError(
+                "CSV must preserve the one-to-one mapping S<N> → raster_val N."
+            )
 
         # Compare normalized calendar days, but reject times that would make
         # otherwise identical daily records ambiguous.
