@@ -211,7 +211,7 @@ class PrecipitationDownloader:
                 # Upgrade manifests created with the former raw-WKB fingerprint
                 # without discarding resumable blocks from the interrupted run.
                 parameters_changed = False
-                print("Manifesto antigo compatível; atualizando hash geométrico sem limpar o cache.")
+                print("Old manifest compatible; updating geometry hash without clearing the cache.")
         has_previous_data = bool(block_paths) or os.path.isfile(unified_path)
         if parameters_changed and has_previous_data:
             backup_dir = self._create_csv_backup(
@@ -229,13 +229,13 @@ class PrecipitationDownloader:
             if os.path.isfile(manifest_path):
                 os.remove(manifest_path)
             print(
-                f"Cache anterior arquivado em {backup_dir}; os blocos serão reextraídos. "
-                "O CSV unificado anterior permanecerá disponível até a nova extração ser validada."
+                f"Old cache archived in {backup_dir}; blocks will be reextracted. "
+                "The previous unified CSV will remain available until the new extraction is validated."
             )
         elif parameters_changed:
-            print("Parâmetros novos detectados; iniciando cache sem dados anteriores.")
+            print("New parameters detected; initializing cache without previous data.")
         else:
-            print("Parâmetros da extração inalterados; cache compatível.")
+            print("Extraction parameters unchanged; cache compatible.")
 
         self._write_cache_manifest(manifest_path, parameters)
         self._restore_compatible_backup_blocks(parameters, expected_subbasins)
@@ -304,12 +304,12 @@ class PrecipitationDownloader:
                         if temp_path and os.path.exists(temp_path):
                             os.remove(temp_path)
                     restored.add(filename)
-                    print(f"Bloco local restaurado do backup: {filename}")
+                    print(f"Local block restored from backup: {filename}")
                 except Exception as error:
-                    print(f"Backup ignorado para {filename}; validação falhou: {error}")
+                    print(f"Backup ignored for {filename}; validation failed: {error}")
 
         if restored:
-            print(f"Cache local recuperado: {len(restored)} bloco(s) restaurado(s).")
+            print(f"Local cache recovered: {len(restored)} block(s) restored.")
 
     def _parameters_match(self, candidate, current):
         if candidate == current:
@@ -441,7 +441,7 @@ class PrecipitationDownloader:
         return stats.map(set_precipitation)
 
     def _merge_csvs(self, expected_subbasins=None):
-        print("Unificando arquivos CSV...")
+        print("Unifying CSV files...")
         csv_files = []
         missing_files = []
         for block_start, block_end in self._date_blocks():
@@ -469,11 +469,11 @@ class PrecipitationDownloader:
                 temp_path = temp_file.name
                 all_data.to_csv(temp_file, index=False)
             if os.path.isfile(final_csv_path) and self._csv_data_equal(temp_path, final_csv_path):
-                print("CSV unificado já está atualizado; nenhum backup foi criado.")
+                print("Unified CSV is already up to date; no backup was created.")
                 return
             if os.path.isfile(final_csv_path):
                 if self.unified_csv_backed_up_for_parameter_change:
-                    print("CSV unificado anterior já foi arquivado pela alteração de parâmetros.")
+                    print("Previous unified CSV has already been archived due to parameter changes.")
                 else:
                     manifest_path = os.path.join(self.csv_folder, "cache_manifest.json")
                     previous_block_paths = [
@@ -486,12 +486,12 @@ class PrecipitationDownloader:
                         manifest_path=manifest_path,
                         unified_path=final_csv_path,
                     )
-                    print(f"CSV unificado anterior arquivado em {backup_dir}.")
+                    print(f"Previous unified CSV archived in {backup_dir}.")
             os.replace(temp_path, final_csv_path)
         finally:
             if temp_path and os.path.exists(temp_path):
                 os.remove(temp_path)
-        print(f"✅ CSV Unificado salvo em: {final_csv_path}")
+        print(f"✅ Unified CSV saved in: {final_csv_path}")
 
     def _read_cache_parameters(self):
         manifest_path = os.path.join(self.csv_folder, "cache_manifest.json")

@@ -41,7 +41,7 @@ class Config:
             self.start_date = parse_date(start_date) if start_date else self.default_start
             self.end_date = parse_date(end_date) if end_date else self.default_end
         except ValueError as e:
-            logging.error(f"Erro ao converter data: {e}")
+            logging.error(f"Error while converting date: {e}")
             raise e
 
         self.precipitation_scale = int(os.getenv("PRECIPITATION_SCALE", "5000"))
@@ -100,7 +100,7 @@ class DssConfig:
         self.end_date = parse_date(end_date) if end_date else self.default_end
 
         if not self.hms_file:
-            raise ValueError("Selecione ou configure o arquivo do projeto HEC-HMS (.hms).")
+            raise ValueError("Select or configure a .hms project file.")
 
         # Accept Windows paths in .env when the pipeline runs under WSL.
         windows_path = PureWindowsPath(self.hms_file)
@@ -110,9 +110,9 @@ class DssConfig:
 
         self.hms_file = os.path.abspath(os.path.expanduser(self.hms_file))
         if not self.hms_file.lower().endswith(".hms"):
-            raise ValueError(f"O arquivo do projeto deve ter extensão .hms: {self.hms_file}")
+            raise ValueError(f"Project file must have .hms extension: {self.hms_file}")
         if not os.path.isfile(self.hms_file):
-            raise FileNotFoundError(f"Arquivo HEC-HMS não encontrado: {self.hms_file}")
+            raise FileNotFoundError(f"HEC-HMS file not found: {self.hms_file}")
 
         self.project_dir = os.path.dirname(self.hms_file)
         self.project_name = os.path.splitext(os.path.basename(self.hms_file))[0]
@@ -120,11 +120,11 @@ class DssConfig:
             self.project_name.encode("ascii")
         except UnicodeEncodeError as error:
             raise ValueError(
-                "O nome do projeto HMS precisa usar caracteres ASCII para os arquivos HEC-HMS gerados."
+                "The HMS project name must use ASCII characters for the generated HEC-HMS files."
             ) from error
         if project_name and project_name != self.project_name:
             logging.warning(
-                "PROJECT_NAME/HMS_PROJECT_NAME ignorado; o nome do projeto será derivado do arquivo .hms."
+                "PROJECT_NAME/HMS_PROJECT_NAME ignored; the project name will be derived from the .hms file."
             )
 
         if not self.basin_name:
