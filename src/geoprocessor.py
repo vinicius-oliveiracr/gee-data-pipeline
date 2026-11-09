@@ -1,10 +1,14 @@
 import geopandas as gpd
+import numpy as np
 import rasterio
 from rasterio.features import rasterize
 from rasterio.transform import from_bounds
 from rasterstats import zonal_stats
 import os
 import sys
+import sqlite3
+from pathlib import Path
+import pandas as pd
 
 class Geoprocessor:
     def __init__(self, config):
@@ -14,9 +18,7 @@ class Geoprocessor:
     def run_all(self):
         try:
             gdf_wgs84 = self.process_geodataframe()
-            self.run_zonal_stats(gdf_wgs84)
-
-            return gdf_wgs84
+            return self.run_zonal_stats(gdf_wgs84)
         except Exception as e:
             print(f"Fatal error in geoprocessing: {e}.")
             sys.exit(1)
@@ -117,7 +119,77 @@ class Geoprocessor:
                 f"{invalid_values}"
             )
 
-        gdf_proj['gcn'] = gcn_values
-        gdf_proj.to_file(self.config.gcn_geojson_path, driver="GeoJSON")
-        print("Zonal statistics saved successfully.")
+        enriched = gdf_wgs84.copy()
+        enriched["gcn"] = gcn_values
+        sqlite_stats = self.read_kirpich_inputs(enriched["name"])
+        enriched = enriched.merge(sqlite_stats, on="name", how="left", validate="one_to_one")
+
+        if enriched[["longest_length_m", "longest_slope_m_m"]].isna().any().any():
+            raise ValueError("SQLite data is missing for one or more subbasins.")
+
+        enriched["tc_kirpich_min"] = (
+            0.0195
+            * enriched["longest_length_m"].pow(0.77)
+            * enriched["longest_slope_m_m"].pow(-0.385)
+        )
+        # SCS Unit Hydrograph basin lag estimate: 0.6 * Tc.
+        enriched["lag_scs_min"] = 0.6 * enriched["tc_kirpich_min"]
+
+        enriched.to_file(self.config.gcn_geojson_path, driver="GeoJSON")
+        print("Zonal statistics, SQLite attributes and Kirpich parameters saved successfully.")
+        return enriched
+
+    def read_kirpich_inputs(self, expected_names):
+        sqlite_path = getattr(self.config, "sqlite_path", None)
+        if not sqlite_path:
+            raise ValueError("SQLITE_PATH must point to the HEC-HMS SQLite project database.")
+        if not os.path.isfile(sqlite_path):
+            raise FileNotFoundError(f"HEC-HMS SQLite database not found: {sqlite_path}")
+
+        db_uri = Path(sqlite_path).resolve().as_uri() + "?mode=ro"
+        with sqlite3.connect(db_uri, uri=True) as connection:
+            tables = {
+                row[0]
+                for row in connection.execute(
+                    "SELECT name FROM sqlite_master WHERE type='table'"
+                )
+            }
+            if "subbasin_statistics" not in tables:
+                raise ValueError("SQLite database has no subbasin_statistics table.")
+            stats = pd.read_sql_query(
+                """SELECT subbasin_name AS name, longest_length, longest_slope,
+                          length_units
+                   FROM subbasin_statistics""",
+                connection,
+            )
+
+        if stats["name"].isna().any():
+            raise ValueError("SQLite subbasin_statistics contains missing names.")
+        stats["name"] = stats["name"].astype(str).str.strip()
+        if stats["name"].eq("").any() or stats["name"].duplicated().any():
+            raise ValueError("SQLite subbasin_statistics contains empty or duplicate names.")
+        stats["longest_length_m"] = pd.to_numeric(stats["longest_length"], errors="coerce")
+        stats["longest_slope_m_m"] = pd.to_numeric(stats["longest_slope"], errors="coerce")
+        units = stats["length_units"].astype(str).str.strip().str.lower()
+        if not units.isin({"m", "meter", "meters", "metre", "metres"}).all():
+            raise ValueError(
+                "Kirpich implementation expects longest_length in meters; "
+                f"SQLite units found: {sorted(units.unique().tolist())}."
+            )
+        if (
+            stats["longest_length_m"].isna().any()
+            or (stats["longest_length_m"] <= 0).any()
+            or stats["longest_slope_m_m"].isna().any()
+            or (stats["longest_slope_m_m"] <= 0).any()
+        ):
+            raise ValueError("Kirpich inputs must be numeric and strictly positive.")
+
+        expected = set(expected_names.astype(str).str.strip())
+        actual = set(stats["name"])
+        if actual != expected:
+            raise ValueError(
+                "SQLite subbasins do not match the GeoDataFrame; "
+                f"missing={sorted(expected - actual)}, unexpected={sorted(actual - expected)}."
+            )
+        return stats[["name", "longest_length_m", "longest_slope_m_m"]]
         

@@ -1,20 +1,27 @@
+Gage Manager:
+     Gage Manager:
+     Version: 4.13
+     Filepath Separator: \
+End:
+
+
 Gage: S_1
      Gage: S_1
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /1/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /1/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -26,18 +33,18 @@ Gage: S_2
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /2/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /2/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -49,18 +56,18 @@ Gage: S_3
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /3/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /3/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -72,18 +79,18 @@ Gage: S_4
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /4/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /4/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -95,18 +102,18 @@ Gage: S_5
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /5/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /5/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -118,18 +125,18 @@ Gage: S_6
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /6/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /6/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -141,18 +148,18 @@ Gage: S_7
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /7/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /7/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -164,18 +171,18 @@ Gage: S_8
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /8/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /8/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -187,18 +194,18 @@ Gage: S_9
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /9/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /9/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -210,18 +217,18 @@ Gage: S_10
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /10/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /10/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -233,18 +240,18 @@ Gage: S_11
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /11/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /11/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -256,18 +263,18 @@ Gage: S_12
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /12/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /12/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -279,18 +286,18 @@ Gage: S_13
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /13/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /13/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -302,18 +309,18 @@ Gage: S_14
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /14/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /14/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -325,18 +332,18 @@ Gage: S_15
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /15/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /15/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -348,18 +355,18 @@ Gage: S_16
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /16/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /16/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -371,18 +378,18 @@ Gage: S_17
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /17/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /17/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -394,18 +401,18 @@ Gage: S_18
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /18/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /18/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -417,18 +424,18 @@ Gage: S_19
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /19/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /19/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -440,18 +447,18 @@ Gage: S_20
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /20/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /20/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -463,18 +470,18 @@ Gage: S_21
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /21/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /21/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -486,18 +493,18 @@ Gage: S_22
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /22/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /22/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -509,18 +516,18 @@ Gage: S_23
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /23/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /23/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -532,18 +539,18 @@ Gage: S_24
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /24/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /24/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -555,18 +562,18 @@ Gage: S_25
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /25/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /25/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -578,18 +585,18 @@ Gage: S_26
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /26/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /26/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -601,18 +608,18 @@ Gage: S_27
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /27/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /27/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -624,18 +631,18 @@ Gage: S_28
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /28/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /28/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -647,18 +654,18 @@ Gage: S_29
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /29/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /29/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -670,18 +677,18 @@ Gage: S_30
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /30/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /30/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -693,18 +700,18 @@ Gage: S_31
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /31/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /31/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -716,18 +723,18 @@ Gage: S_32
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /32/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /32/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -739,18 +746,18 @@ Gage: S_33
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /33/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /33/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -762,18 +769,18 @@ Gage: S_34
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /34/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /34/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -785,18 +792,18 @@ Gage: S_35
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /35/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /35/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -808,18 +815,18 @@ Gage: S_36
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /36/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /36/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -831,18 +838,18 @@ Gage: S_37
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /37/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /37/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -854,18 +861,18 @@ Gage: S_38
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /38/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /38/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -877,18 +884,18 @@ Gage: S_39
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /39/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /39/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -900,18 +907,18 @@ Gage: S_40
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /40/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /40/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -923,18 +930,18 @@ Gage: S_41
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /41/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /41/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -946,18 +953,18 @@ Gage: S_42
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /42/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /42/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -969,18 +976,18 @@ Gage: S_43
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /43/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /43/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -992,18 +999,18 @@ Gage: S_44
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /44/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /44/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1015,18 +1022,18 @@ Gage: S_45
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /45/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /45/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1038,18 +1045,18 @@ Gage: S_46
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /46/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /46/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1061,18 +1068,18 @@ Gage: S_47
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /47/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /47/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1084,18 +1091,18 @@ Gage: S_48
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /48/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /48/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1107,18 +1114,18 @@ Gage: S_49
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /49/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /49/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1130,18 +1137,18 @@ Gage: S_50
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /50/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /50/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1153,18 +1160,18 @@ Gage: S_51
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /51/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /51/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1176,18 +1183,18 @@ Gage: S_52
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /52/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /52/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1199,18 +1206,18 @@ Gage: S_53
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /53/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /53/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1222,18 +1229,18 @@ Gage: S_54
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /54/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /54/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1245,18 +1252,18 @@ Gage: S_55
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /55/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /55/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1268,18 +1275,18 @@ Gage: S_56
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /56/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /56/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1291,18 +1298,18 @@ Gage: S_57
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /57/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /57/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1314,18 +1321,18 @@ Gage: S_58
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /58/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /58/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1337,18 +1344,18 @@ Gage: S_59
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /59/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /59/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1360,18 +1367,18 @@ Gage: S_60
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /60/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /60/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1383,18 +1390,18 @@ Gage: S_61
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /61/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /61/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1406,18 +1413,18 @@ Gage: S_62
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /62/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /62/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1429,18 +1436,18 @@ Gage: S_63
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /63/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /63/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1452,18 +1459,18 @@ Gage: S_64
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /64/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /64/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1475,18 +1482,18 @@ Gage: S_65
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /65/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /65/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1498,18 +1505,18 @@ Gage: S_66
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /66/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /66/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1521,18 +1528,18 @@ Gage: S_67
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /67/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /67/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1544,18 +1551,18 @@ Gage: S_68
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /68/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /68/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1
@@ -1567,18 +1574,18 @@ Gage: S_69
      Gage Type: Precipitation
      Precipitation Type: Incremental
      Last Modified Date: 29 October 2026
-     Last Modified Time: 14:50:34
+     Last Modified Time: 17:29:34
      Reference Height Units: Meters
      Reference Height: 10.0
      Units: MM
-     Data Type: PER-INC
+     Data Type: PER-CUM
      Data Source Type: Single Record HEC-DSS
      Variant: Variant-1
      Last Variant Modified Date: 29 October 2026
-     Last Variant Modified Time: 14:50:34
+     Last Variant Modified Time: 17:29:34
      Default Variant: Yes
      DSS File Name: data\tcc.dss
-     DSS Pathname: /69/PRECIP/PRECIP-INC//1DAY/GPM-CHIRPS/
+     DSS Pathname: /69/PRECIP/PRECIP-INC/01Jan2018/1Day/GPM-CHIRPS/
      Start Time: 01 January 2018 00:00:00
      End Time: 01 January 2023 00:00:00
      End Variant: Variant-1

@@ -52,6 +52,7 @@ def dss_workflow(dss_config: DssConfig = None):
 
         file_generator = HmsFileGenerator(dss_config)
         file_generator.update_basin_curve_numbers()
+        file_generator.update_basin_scs_transform_lags()
         file_generator.generate_gage_file(gage_data_list)
 
         subbasins_data = []
@@ -77,7 +78,9 @@ def dss_workflow(dss_config: DssConfig = None):
                     f"expected {expected_subbasin_name!r}."
                 )
 
-            expected_dss_path = dss_config.build_dss_pathname(subbasin_id)
+            expected_dss_path = dss_config.build_dss_pathname(
+                subbasin_id, dss_config.start_date.strftime("%d%b%Y")
+            )
             if gage.get("dss_path") != expected_dss_path:
                 raise ValueError(
                     f"Gage {gage_name} references {gage.get('dss_path')!r}; "

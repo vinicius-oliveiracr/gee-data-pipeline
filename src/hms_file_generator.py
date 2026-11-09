@@ -4,6 +4,7 @@ from datetime import timedelta
 import logging
 import os
 import re
+import math
 
 class HmsFileGenerator:
     def __init__(self, config):
@@ -286,6 +287,108 @@ class HmsFileGenerator:
             len(updated_names), basin_path,
         )
 
+    def update_basin_scs_transform_lags(self):
+        """Apply Kirpich-derived SCS unit-hydrograph lag times to the basin model."""
+        import geopandas as gpd
+
+        basin_path = self.config.basin_file
+        geojson_path = self.config.gcn_geojson_path
+        geojson = gpd.read_file(geojson_path)
+        required = {"name", "tc_kirpich_min", "lag_scs_min"}
+        if not required.issubset(geojson.columns):
+            raise ValueError(
+                "Hydrologic GeoJSON must contain: " + ", ".join(sorted(required))
+            )
+
+        lag_times = {}
+        for name, tc, lag in zip(
+            geojson["name"], geojson["tc_kirpich_min"], geojson["lag_scs_min"]
+        ):
+            name = str(name).strip()
+            if not name or name in lag_times:
+                raise ValueError(f"Missing or duplicate subbasin name in GeoJSON: {name!r}")
+            tc, lag = float(tc), float(lag)
+            if not (math.isfinite(tc) and tc > 0 and math.isfinite(lag) and lag > 0):
+                raise ValueError(f"Invalid Tc/lag for {name}: Tc={tc}, lag={lag}")
+            lag_times[name] = lag
+
+        with open(basin_path, "r", encoding="ascii", errors="strict", newline="") as basin_file:
+            original_content = basin_file.read()
+
+        lines = original_content.splitlines()
+        updated_names = set()
+        index = 0
+        while index < len(lines):
+            match = re.fullmatch(r"Subbasin:\s*(.+?)\s*", lines[index])
+            if not match:
+                index += 1
+                continue
+            subbasin_name = match.group(1)
+            end_index = index + 1
+            while end_index < len(lines) and lines[end_index].strip() != "End:":
+                end_index += 1
+            if end_index == len(lines):
+                raise ValueError(f"Unterminated subbasin block in {basin_path}: {subbasin_name}")
+
+            if subbasin_name in lag_times:
+                updated_names.add(subbasin_name)
+                block = lines[index + 1:end_index]
+                transform_index = next(
+                    (i for i, line in enumerate(block)
+                     if re.match(r"\s*Transform\s*:", line, re.IGNORECASE)),
+                    None,
+                )
+                if transform_index is None:
+                    raise ValueError(f"Transform field missing for {subbasin_name} in {basin_path}")
+                indent = re.match(r"\s*", block[transform_index]).group(0)
+                block[transform_index] = f"{indent}Transform: SCS"
+
+                # Use the field names expected by the HEC-HMS .basin format.
+                block = [
+                    line for line in block
+                    if not re.match(
+                        r"\s*(?:Clark\s+Method|SCS\s+Method|Graph\s+Type|"
+                        r"Lag(?:\s+Time)?|Unitgraph\s+Type|Time\s+Area\s+Method)\s*:",
+                        line,
+                        re.IGNORECASE,
+                    )
+                ]
+                transform_index = next(
+                    i for i, line in enumerate(block)
+                    if re.match(r"\s*Transform\s*:", line, re.IGNORECASE)
+                )
+                indent = re.match(r"\s*", block[transform_index]).group(0)
+                block[transform_index + 1:transform_index + 1] = [
+                    f"{indent}Lag: {lag_times[subbasin_name]:.6f}",
+                    f"{indent}Unitgraph Type: STANDARD",
+                ]
+                lines[index + 1:end_index] = block
+                end_index = index + len(block) + 1
+            index = end_index + 1
+
+        missing_names = set(lag_times) - updated_names
+        if missing_names:
+            raise ValueError(
+                "GeoJSON subbasins have no matching elements in HEC-HMS basin file: "
+                + ", ".join(sorted(missing_names))
+            )
+        basin_names = set(re.findall(r"^Subbasin:\s*(.+?)\s*$", original_content, re.MULTILINE))
+        if basin_names != set(lag_times):
+            raise ValueError(
+                "HEC-HMS subbasins and GeoJSON lag records do not match; "
+                f"missing={sorted(basin_names - set(lag_times))}, "
+                f"unexpected={sorted(set(lag_times) - basin_names)}."
+            )
+
+        updated_content = "\r\n".join(lines) + "\r\n"
+        if updated_content != original_content:
+            with open(basin_path, "w", encoding="ascii", newline="") as basin_file:
+                basin_file.write(updated_content)
+        logging.info(
+            "Applied SCS Unit Hydrograph transform and lag time to %d subbasins in %s.",
+            len(updated_names), basin_path,
+        )
+
     def sync_hms_project(self):
         hms_path = getattr(self.config, "hms_file", None)
 
@@ -318,6 +421,9 @@ class HmsFileGenerator:
         # synchronizing so existing projects are repaired and reruns stay clean.
         lines = content.splitlines()
         cleaned_lines = []
+        in_project_block = False
+        project_dss_updated = False
+        project_dss_filename = self.config.hms_dss_filename
         generated_headers = {
             f"Precipitation: {met_name}",
             f"Control: {control_name}",
@@ -326,6 +432,22 @@ class HmsFileGenerator:
         skipping_generated_block = False
         for line in lines:
             stripped_line = line.strip()
+            if stripped_line.startswith("Project:"):
+                in_project_block = True
+            if in_project_block and stripped_line.startswith("DSS File Name:"):
+                indentation = line[:len(line) - len(line.lstrip())]
+                cleaned_lines.append(
+                    f"{indentation}DSS File Name: {project_dss_filename}"
+                )
+                project_dss_updated = True
+                continue
+            if in_project_block and stripped_line == "End:":
+                if not project_dss_updated:
+                    cleaned_lines.append(
+                        f"     DSS File Name: {project_dss_filename}"
+                    )
+                    project_dss_updated = True
+                in_project_block = False
             if stripped_line.startswith("Meteorology:") or stripped_line in generated_headers:
                 skipping_generated_block = True
                 continue

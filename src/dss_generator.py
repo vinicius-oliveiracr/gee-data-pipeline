@@ -49,9 +49,17 @@ class DssGenerator:
                     pathname_save = self.config.build_dss_pathname(
                         sub_id, start_date.strftime("%d%b%Y")
                     )
-                    pathname_ref = self.config.build_dss_pathname(sub_id)
                     tsc = self.build_tsc(pathname_save, start_date, values)
                     dss.put_ts(tsc)
+                    # Use the pathname as catalogued by DSS. The library
+                    # canonicalizes interval names (for example, 1Day).
+                    matching_paths = dss.search_path(pathname_save)
+                    if len(matching_paths) != 1:
+                        raise RuntimeError(
+                            f"Expected one DSS record for {pathname_save!r}; "
+                            f"found {len(matching_paths)}."
+                        )
+                    pathname_ref = matching_paths[0]
                     logging.info(f"Data saved for subbasin {sub_id}.")
                     gage_entries.append({
                         "id": f"Gage-{i}",

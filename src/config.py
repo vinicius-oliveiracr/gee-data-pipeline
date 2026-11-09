@@ -53,6 +53,11 @@ class Config:
         self.project_name = project_name or os.getenv("PROJECT_NAME")
         self.control_file = control_file or os.getenv("CONTROL_FILE")
         self.gcn_raster_path = os.path.join(BASE_DIR, "assets", "GCN.tif")
+        self.sqlite_path = os.getenv("SQLITE_PATH")
+        if self.sqlite_path:
+            self.sqlite_path = os.path.abspath(
+                os.path.expanduser(self.sqlite_path.strip().strip("'\""))
+            )
         self.gcn_geojson_path = os.path.join(
             BASE_DIR, "saidas", "subbacias_corrigidas_com_gcn.geojson"
         )
@@ -137,22 +142,33 @@ class DssConfig:
         self.gage_file = str(self.local_output_dir / f"{self.project_name}.gage")
         self.met_file = str(self.local_output_dir / f"{self.project_name}.met")
         self.control_file = str(self.local_output_dir / f"{self.project_name}.control")
-        self.hms_dss_filename = str(PureWindowsPath("data") / f"{self.project_name}.dss")
+        self.hms_dss_filename = str(
+            PureWindowsPath("data") / f"{self.project_name}.dss"
+        )
 
         if not self.csv_file:
             logging.warning("CSV_FILE is not configured; DSS generation will require a CSV path.")
 
         self.B_PART = "PRECIP"
         self.C_PART = "PRECIP-INC"       
-        self.E_PART = "1DAY"             
+        # Match HEC-DSS's canonical interval spelling returned by its catalog.
+        self.E_PART = "1Day"
         self.F_PART = "GPM-CHIRPS"
         self.INTERVAL = 1                
-        self.DATA_TYPE = "PER-INC"
+        # HEC-DSS uses PER-CUM for incremental precipitation (C-part
+        # PRECIP-INC). PER-INC is not a recognized DSS time-series type.
+        self.DATA_TYPE = "PER-CUM"
         self.UNITS = "MM"
 
         self.met_model_name = self.project_name
         self.control_name = self.project_name
         self.GAGE_TEMPLATE = textwrap.dedent("""\
+Gage Manager:
+     Gage Manager:
+     Version: 4.13
+     Filepath Separator: \\
+End:
+
 {% for gage in gages %}
 Gage: {{ gage.name }}
      Gage: {{ gage.name }}
@@ -234,6 +250,15 @@ End:""")
                 dest_file = os.path.join(data_dir, src_file.name)
             else:
                 dest_file = os.path.join(self.project_dir, src_file.name)
+            if src_file.suffix.lower() == ".dss" and os.path.exists(dest_file):
+                backup_dir = os.path.join(self.local_output_dir, "dss_backups")
+                os.makedirs(backup_dir, exist_ok=True)
+                timestamp = datetime.now().strftime("%Y%m%dT%H%M%S%f")
+                backup_path = os.path.join(
+                    backup_dir, f"project_{src_file.name}.{timestamp}.bak"
+                )
+                shutil.copy2(dest_file, backup_path)
+                logging.info("Previous project DSS preserved at %s.", backup_path)
             shutil.copy2(src_file, dest_file)
         print("✅ Files exported with success to HEC-HMS!")
 
