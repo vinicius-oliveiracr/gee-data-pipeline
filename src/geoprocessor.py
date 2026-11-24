@@ -11,11 +11,13 @@ from pathlib import Path
 import pandas as pd
 
 class Geoprocessor:
+    """Prepare subbasin geometries and attach raster and HEC-HMS attributes."""
     def __init__(self, config):
         self.config = config
         print("Geoprocessor initilized.")
 
     def run_all(self):
+        """Run geometry preparation followed by zonal and hydrologic statistics."""
         try:
             gdf_wgs84 = self.process_geodataframe()
             return self.run_zonal_stats(gdf_wgs84)
@@ -24,6 +26,7 @@ class Geoprocessor:
             sys.exit(1)
 
     def process_geodataframe(self):
+        """Validate subbasin IDs, normalize geometry, and create spatial intermediates."""
         gdf = gpd.read_file(self.config.shp_path)
         if "name" not in gdf.columns:
             raise ValueError("Subbasin shapefile must contain a 'name' field (S1, S2, ...).")
@@ -49,9 +52,6 @@ class Geoprocessor:
                 f"missing={sorted(expected_ids - actual_ids)}, "
                 f"unexpected={sorted(actual_ids - expected_ids)}."
             )
-
-        # Keep precipitation IDs tied to the HEC-HMS subbasin suffix, not
-        # shapefile row order: S1 always maps to raster_val 1, S2 to 2, etc.
         gdf["name"] = [f"S{sub_id}" for sub_id in subbasin_ids]
         gdf["raster_val"] = subbasin_ids.to_numpy(dtype=np.int64)
         gdf_wgs84 = gdf.to_crs("EPSG:4326")
@@ -65,6 +65,7 @@ class Geoprocessor:
         return gdf_wgs84
     
     def rasterize_gdf(self, gdf_wgs84):
+        """Write projected subbasins and a 1 km integer mask raster to the output folder."""
         gdf_m = gdf_wgs84.to_crs(gdf_wgs84.estimate_utm_crs())
 
         subbasins_folder = os.path.join(self.config.exit_path, "shapefiles")
@@ -99,6 +100,7 @@ class Geoprocessor:
         print(f"Raster file saved in {output_tif}.")
 
     def run_zonal_stats(self, gdf_wgs84):
+        """Sample curve numbers and join channel metrics used for Kirpich time of concentration."""
         with rasterio.open(self.config.gcn_raster_path) as src:
             raster_crs = src.crs
             raster_nodata = src.nodata
@@ -132,7 +134,6 @@ class Geoprocessor:
             * enriched["longest_length_m"].pow(0.77)
             * enriched["longest_slope_m_m"].pow(-0.385)
         )
-        # SCS Unit Hydrograph basin lag estimate: 0.6 * Tc.
         enriched["lag_scs_min"] = 0.6 * enriched["tc_kirpich_min"]
 
         enriched.to_file(self.config.gcn_geojson_path, driver="GeoJSON")
@@ -140,6 +141,7 @@ class Geoprocessor:
         return enriched
 
     def read_kirpich_inputs(self, expected_names):
+        """Read and validate channel length and slope from the HMS project database."""
         sqlite_path = getattr(self.config, "sqlite_path", None)
         if not sqlite_path:
             raise ValueError("SQLITE_PATH must point to the HEC-HMS SQLite project database.")

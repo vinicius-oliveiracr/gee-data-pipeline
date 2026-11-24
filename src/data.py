@@ -13,6 +13,7 @@ from datetime import timedelta
 from shapely.geometry import mapping
 
 class PrecipitationDownloader:    
+    """Download daily CHIRPS basin means with a validated, resumable local CSV cache."""
     def __init__(self, config):
         self.config = config
         self.csv_folder = os.path.join(self.config.exit_path, "csv_blocks")
@@ -22,6 +23,7 @@ class PrecipitationDownloader:
         print("PrecipitationDownloader initilized.")
 
     def download_data(self, gdf_wgs84):
+        """Fetch missing 30-day blocks, validate coverage, then refresh the unified CSV."""
         try:
             print("\n--- Data extraction from Google Earth Engine initialized---")
             
@@ -77,6 +79,7 @@ class PrecipitationDownloader:
             current_start = current_end
 
     def _cache_parameters(self, gdf_wgs84):
+        """Fingerprint every setting that can change the extracted precipitation values."""
         geometry_rows = sorted(
             (
                 str(row["raster_val"]),
@@ -156,8 +159,6 @@ class PrecipitationDownloader:
 
     @staticmethod
     def _canonical_ring(coordinates):
-        # Rounding to 1e-8 degrees suppresses serialization noise below about a
-        # millimeter while preserving meaningful changes to subbasin boundaries.
         points = [tuple(round(float(value), 8) for value in point) for point in coordinates]
         if len(points) > 1 and points[0] == points[-1]:
             points.pop()
@@ -180,6 +181,7 @@ class PrecipitationDownloader:
         return [list(point) for point in canonical]
 
     def _prepare_cache(self, parameters, expected_subbasins):
+        """Keep cached blocks only when their manifest matches the current extraction."""
         manifest_path = os.path.join(self.csv_folder, "cache_manifest.json")
         unified_path = os.path.join(
             self.config.exit_path, "precipitacao_diaria_subbacias_unificado.csv"
@@ -208,8 +210,6 @@ class PrecipitationDownloader:
                 previous_without_geometry == current_without_geometry
                 and previous_geometry_digest == getattr(self, "_legacy_geometry_digest", None)
             ):
-                # Upgrade manifests created with the former raw-WKB fingerprint
-                # without discarding resumable blocks from the interrupted run.
                 parameters_changed = False
                 print("Old manifest compatible; updating geometry hash without clearing the cache.")
         has_previous_data = bool(block_paths) or os.path.isfile(unified_path)
@@ -222,8 +222,6 @@ class PrecipitationDownloader:
                 unified_path=unified_path if os.path.isfile(unified_path) else None,
             )
             self.unified_csv_backed_up_for_parameter_change = os.path.isfile(unified_path)
-            # These files are safely archived; remove them from the active cache
-            # so blocks generated with old settings cannot be reused by filename.
             for path in block_paths:
                 os.remove(path)
             if os.path.isfile(manifest_path):
@@ -385,6 +383,7 @@ class PrecipitationDownloader:
                 os.remove(temp_path)
 
     def _create_feature_collection(self, gdf_wgs84):
+        """Convert basin geometries and identifiers into Earth Engine features."""
         features = []
         for _, row in gdf_wgs84.iterrows():
             geom = ee.Geometry(mapping(row.geometry))
@@ -396,6 +395,7 @@ class PrecipitationDownloader:
         return ee.FeatureCollection(features)
 
     def _get_image_collection(self, fc, start_date, end_date):
+        """Select daily CHIRPS images intersecting the basins and requested date block."""
         return (
             ee.ImageCollection("UCSB-CHG/CHIRPS/DAILY")
             .filterBounds(fc)
@@ -405,6 +405,7 @@ class PrecipitationDownloader:
         )
 
     def _zonal_mean(self, img, fc):
+        """Compute area means, falling back to an interior pixel for tiny basins."""
         stats = img.reduceRegions(
             collection=fc,
             reducer=ee.Reducer.mean(),
@@ -441,6 +442,7 @@ class PrecipitationDownloader:
         return stats.map(set_precipitation)
 
     def _merge_csvs(self, expected_subbasins=None):
+        """Validate all expected blocks and atomically publish the unified CSV."""
         print("Unifying CSV files...")
         csv_files = []
         missing_files = []
@@ -521,6 +523,7 @@ class PrecipitationDownloader:
     def _validate_daily_coverage(
         self, data, expected_subbasins=None, period_start=None, period_end=None
     ):
+        """Reject malformed rows, unsupported sampling methods, and incomplete daily series."""
         required_columns = {
             "date", "raster_val", "name", "precipitation", "precipitation_method"
         }

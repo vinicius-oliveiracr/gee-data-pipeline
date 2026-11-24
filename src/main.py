@@ -15,6 +15,7 @@ logging.basicConfig(
     force=True)
 
 def gee_workflow(config: Config = None):
+    """Run authentication, geospatial preparation, and CHIRPS precipitation extraction."""
     logging.info("---Initializing hydrologic automation ---")
 
     try:
@@ -37,6 +38,7 @@ def gee_workflow(config: Config = None):
 
     
 def dss_workflow(dss_config: DssConfig = None):
+    """Create DSS/HMS inputs and synchronize the selected HEC-HMS project."""
     logging.info("DSS/HMS automation proccess initialized.\n")
 
     try:

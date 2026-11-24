@@ -9,6 +9,7 @@ import tempfile
 from datetime import datetime
 
 class DssGenerator:
+    """Validate daily CSV data and write one DSS precipitation series per subbasin."""
     def __init__(self, config) -> list:
         self.config = config
         logging.info("DssGenerator initialized.")
@@ -19,6 +20,7 @@ class DssGenerator:
         return self.create_dss_file()
  
     def create_dss_file(self) -> list:
+        """Build a staged DSS and replace the active file only after validation succeeds."""
         try:
             filtered_df = self._read_validated_period()
         except FileNotFoundError:
@@ -38,7 +40,6 @@ class DssGenerator:
         os.makedirs(output_dir, exist_ok=True)
         expected_gage_count = filtered_df["raster_val"].nunique()
 
-        # Build separately so a failed write leaves the active DSS untouched.
         with tempfile.TemporaryDirectory(prefix=".dss_build_", dir=output_dir) as build_dir:
             staged_dss_path = os.path.join(build_dir, os.path.basename(dss_path))
             with HecDss.Open(staged_dss_path, version=7) as dss:
@@ -51,8 +52,6 @@ class DssGenerator:
                     )
                     tsc = self.build_tsc(pathname_save, start_date, values)
                     dss.put_ts(tsc)
-                    # Use the pathname as catalogued by DSS. The library
-                    # canonicalizes interval names (for example, 1Day).
                     matching_paths = dss.search_path(pathname_save)
                     if len(matching_paths) != 1:
                         raise RuntimeError(
@@ -114,8 +113,6 @@ class DssGenerator:
                 "CSV must preserve the one-to-one mapping S<N> → raster_val N."
             )
 
-        # Compare normalized calendar days, but reject times that would make
-        # otherwise identical daily records ambiguous.
         normalized_dates = df['date'].dt.normalize()
         has_time = df['date'].ne(normalized_dates)
         if has_time.any():
@@ -149,6 +146,7 @@ class DssGenerator:
         return df
 
     def build_tsc(self, pathname, start_date, values) -> TimeSeriesContainer:
+        """Create the regular daily DSS time-series record expected by HEC-HMS."""
 
         if hasattr(values, "to_numpy"):
             valid_values = values.to_numpy(dtype=np.float64)

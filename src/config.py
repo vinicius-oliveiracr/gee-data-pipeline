@@ -12,6 +12,7 @@ load_dotenv()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def parse_date(date_val):
+    """Convert YYYY-MM-DD strings to datetimes; leave non-string values unchanged."""
     if isinstance(date_val, str):
         try:
             return datetime.strptime(date_val, "%Y-%m-%d")
@@ -20,6 +21,7 @@ def parse_date(date_val):
 
         
 class Config:
+    """Settings and input/output paths for geospatial processing and GEE extraction."""
     def __init__(self,
                  shp_path=None,
                  exit_path=None,
@@ -36,7 +38,6 @@ class Config:
         self.default_start = datetime(2018, 1, 1)
         self.default_end = datetime(2022, 12, 31)
         
-        # Tratamento de erro na conversão de datas (onde um ValueError PODE acontecer)
         try:
             self.start_date = parse_date(start_date) if start_date else self.default_start
             self.end_date = parse_date(end_date) if end_date else self.default_end
@@ -65,7 +66,6 @@ class Config:
         self.account = os.getenv("EE_ACCOUNT")
         self.private_key_path = os.getenv("PRIVATE_KEY_PATH")
 
-        # Validação explícita de presença de valores essenciais
         essential_vars = {
             "PRIVATE_KEY_PATH": self.private_key_path,
             "PROJECT_NAME": self.project_name,
@@ -80,6 +80,7 @@ class Config:
 
 
 class DssConfig:
+    """Settings for DSS generation and files associated with one HEC-HMS project."""
     def __init__(self, 
                 dss_file=None,
                 hms_file = None,
@@ -102,7 +103,6 @@ class DssConfig:
         if not self.hms_file:
             raise ValueError("Select or configure a .hms project file.")
 
-        # Accept Windows paths in .env when the pipeline runs under WSL.
         windows_path = PureWindowsPath(self.hms_file)
         if os.name != "nt" and windows_path.drive:
             drive = windows_path.drive.rstrip(":").lower()
@@ -151,12 +151,9 @@ class DssConfig:
 
         self.B_PART = "PRECIP"
         self.C_PART = "PRECIP-INC"       
-        # Match HEC-DSS's canonical interval spelling returned by its catalog.
         self.E_PART = "1Day"
         self.F_PART = "GPM-CHIRPS"
         self.INTERVAL = 1                
-        # HEC-DSS uses PER-CUM for incremental precipitation (C-part
-        # PRECIP-INC). PER-INC is not a recognized DSS time-series type.
         self.DATA_TYPE = "PER-CUM"
         self.UNITS = "MM"
 
@@ -242,6 +239,7 @@ End:""")
         return "/" + "/".join(parts) + "/"
 
     def export_to_hec_hms_dir(self):
+        """Copy generated files into the HMS project, preserving an existing DSS first."""
         print(f"Copiando arquivos de saída para {self.project_dir}...")
         for src_file in self.local_output_dir.glob("*.*"):
             if src_file.suffix.lower() == ".dss":

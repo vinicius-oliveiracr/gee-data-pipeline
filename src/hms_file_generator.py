@@ -7,6 +7,7 @@ import re
 import math
 
 class HmsFileGenerator:
+    """Generate HEC-HMS text files and update basin model parameters."""
     def __init__(self, config):
         self.config = config
         logging.info("HmsFileGenerator initialized.")
@@ -32,6 +33,7 @@ class HmsFileGenerator:
         return date_obj.strftime("%d %B %Y")
    
     def generate_gage_file(self, gages_data: list):
+        """Write precipitation gages that point to the generated DSS records."""
         if not gages_data:
             logging.warning("No entry for gage file.")
             return
@@ -75,6 +77,7 @@ class HmsFileGenerator:
             logging.error(f"Unable to write gage file: {e}")
 
     def generate_met_file(self, subbasins_data: list):
+        """Assign each basin subbasin to its precipitation gage in a .met file."""
         if not subbasins_data:
             logging.warning("No subbasins provided for the meteorological model.")
             return
@@ -127,6 +130,7 @@ class HmsFileGenerator:
 
 
     def generate_control_file(self):
+        """Write a control period covering the configured daily precipitation series."""
 
         template = Template(self.config.CONTROL_TEMPLATE)
         now = datetime.now()
@@ -142,8 +146,6 @@ class HmsFileGenerator:
             date_str=self._format_hec_date(now),
             time_str=now.strftime("%H:%M"),
             start_date=self._format_hec_date(self.config.start_date),
-            # The control window is a half-open interval. Close it at
-            # midnight after the final included daily precipitation value.
             end_date=self._format_hec_date(self.config.end_date + timedelta(days=1)),
         )
 
@@ -213,8 +215,6 @@ class HmsFileGenerator:
                     raise ValueError(f"LossRate field missing for {subbasin_name} in {basin_path}")
 
                 indent = re.match(r"\s*", block[loss_index]).group(0)
-                # HEC-HMS stores the SCS Curve Number loss method as "SCS"
-                # in the .basin file, even though the UI shows its full name.
                 block[loss_index] = f"{indent}LossRate: SCS"
                 impervious_percent = 0.0
                 found_impervious = False
@@ -226,7 +226,6 @@ class HmsFileGenerator:
                         re.IGNORECASE,
                     )
                     if impervious_match:
-                        # Prefer the recognized field if both it and a legacy alias exist.
                         value = impervious_match.group(1)
                         if not found_impervious or re.match(
                             r"\s*Percent\s+Impervious\s*:", line, re.IGNORECASE
@@ -240,7 +239,6 @@ class HmsFileGenerator:
                             found_impervious = True
                         continue
 
-                    # Remove Curve Number aliases so the generated value occurs once.
                     if re.match(r"\s*Curve\s*Number\s*:", line, re.IGNORECASE):
                         continue
                     normalized_block.append(line)
@@ -342,8 +340,6 @@ class HmsFileGenerator:
                     raise ValueError(f"Transform field missing for {subbasin_name} in {basin_path}")
                 indent = re.match(r"\s*", block[transform_index]).group(0)
                 block[transform_index] = f"{indent}Transform: SCS"
-
-                # Use the field names expected by the HEC-HMS .basin format.
                 block = [
                     line for line in block
                     if not re.match(
@@ -390,6 +386,7 @@ class HmsFileGenerator:
         )
 
     def sync_hms_project(self):
+        """Register generated meteorology and control files in the HMS project file."""
         hms_path = getattr(self.config, "hms_file", None)
 
         if not hms_path:
@@ -415,10 +412,6 @@ class HmsFileGenerator:
         with open(hms_path, 'r', encoding='ascii', errors='ignore') as file:
             original_content = file.read()
         content = original_content
-
-        # HEC-HMS registers a meteorologic model under the Precipitation
-        # identifier in the project file. Remove the old invalid block before
-        # synchronizing so existing projects are repaired and reruns stay clean.
         lines = content.splitlines()
         cleaned_lines = []
         in_project_block = False
