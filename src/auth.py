@@ -3,6 +3,7 @@ import sys
 from google.oauth2 import service_account
 
 def initialize_gee(config):
+    """Authenticate with the configured service account and initialize Earth Engine."""
     try:
         credentials = service_account.Credentials.from_service_account_file(
             config.private_key_path,

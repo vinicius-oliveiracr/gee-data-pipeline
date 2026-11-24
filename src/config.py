@@ -12,6 +12,7 @@ load_dotenv()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def parse_date(date_val):
+    """Convert YYYY-MM-DD strings to datetimes; leave non-string values unchanged."""
     if isinstance(date_val, str):
         try:
             return datetime.strptime(date_val, "%Y-%m-%d")
@@ -20,6 +21,7 @@ def parse_date(date_val):
 
         
 class Config:
+    """Settings and input/output paths for geospatial processing and GEE extraction."""
     def __init__(self,
                  shp_path=None,
                  exit_path=None,
@@ -36,12 +38,11 @@ class Config:
         self.default_start = datetime(2018, 1, 1)
         self.default_end = datetime(2022, 12, 31)
         
-        # Tratamento de erro na conversão de datas (onde um ValueError PODE acontecer)
         try:
             self.start_date = parse_date(start_date) if start_date else self.default_start
             self.end_date = parse_date(end_date) if end_date else self.default_end
         except ValueError as e:
-            logging.error(f"Erro ao converter data: {e}")
+            logging.error(f"Error while converting date: {e}")
             raise e
 
         self.precipitation_scale = int(os.getenv("PRECIPITATION_SCALE", "5000"))
@@ -53,6 +54,11 @@ class Config:
         self.project_name = project_name or os.getenv("PROJECT_NAME")
         self.control_file = control_file or os.getenv("CONTROL_FILE")
         self.gcn_raster_path = os.path.join(BASE_DIR, "assets", "GCN.tif")
+        self.sqlite_path = os.getenv("SQLITE_PATH")
+        if self.sqlite_path:
+            self.sqlite_path = os.path.abspath(
+                os.path.expanduser(self.sqlite_path.strip().strip("'\""))
+            )
         self.gcn_geojson_path = os.path.join(
             BASE_DIR, "saidas", "subbacias_corrigidas_com_gcn.geojson"
         )
@@ -60,7 +66,6 @@ class Config:
         self.account = os.getenv("EE_ACCOUNT")
         self.private_key_path = os.getenv("PRIVATE_KEY_PATH")
 
-        # Validação explícita de presença de valores essenciais
         essential_vars = {
             "PRIVATE_KEY_PATH": self.private_key_path,
             "PROJECT_NAME": self.project_name,
@@ -75,6 +80,7 @@ class Config:
 
 
 class DssConfig:
+    """Settings for DSS generation and files associated with one HEC-HMS project."""
     def __init__(self, 
                 dss_file=None,
                 hms_file = None,
@@ -89,63 +95,77 @@ class DssConfig:
         self.default_start = datetime(2018, 1, 1)
         self.default_end = datetime(2022, 12, 31)
         self.csv_file = csv_file or os.getenv("CSV_FILE")
-        self.dss_file = dss_file or os.getenv("DSS_FILE")
         self.hms_file = hms_file or os.getenv("HMS_FILE")
-        self.project_name = project_name or os.getenv("HMS_PROJECT_NAME")
-        self.gage_file = gage_file or os.getenv("GAGE_FILE")
         self.basin_name = basin_name or os.getenv("BASIN_NAME")
-        self.met_file = met_file or os.getenv("MET_FILE")
-        self.control_file = control_file or os.getenv("CONTROL_FILE")
         self.start_date = parse_date(start_date) if start_date else self.default_start
         self.end_date = parse_date(end_date) if end_date else self.default_end
 
-        # Accept Windows paths in .env when the pipeline runs under WSL.
+        if not self.hms_file:
+            raise ValueError("Select or configure a .hms project file.")
+
         windows_path = PureWindowsPath(self.hms_file)
         if os.name != "nt" and windows_path.drive:
             drive = windows_path.drive.rstrip(":").lower()
             self.hms_file = str(Path("/mnt") / drive / Path(*windows_path.parts[1:]))
 
+        self.hms_file = os.path.abspath(os.path.expanduser(self.hms_file))
+        if not self.hms_file.lower().endswith(".hms"):
+            raise ValueError(f"Project file must have .hms extension: {self.hms_file}")
+        if not os.path.isfile(self.hms_file):
+            raise FileNotFoundError(f"HEC-HMS file not found: {self.hms_file}")
+
         self.project_dir = os.path.dirname(self.hms_file)
+        self.project_name = os.path.splitext(os.path.basename(self.hms_file))[0]
+        try:
+            self.project_name.encode("ascii")
+        except UnicodeEncodeError as error:
+            raise ValueError(
+                "The HMS project name must use ASCII characters for the generated HEC-HMS files."
+            ) from error
+        if project_name and project_name != self.project_name:
+            logging.warning(
+                "PROJECT_NAME/HMS_PROJECT_NAME ignored; the project name will be derived from the .hms file."
+            )
 
         if not self.basin_name:
             self.basin_name = "pds"
         self.basin_file = os.path.join(self.project_dir, f"{self.basin_name}.basin")
 
-        hms_basename = os.path.basename(self.hms_file)
-        self.project_name = os.getenv("PROJECT_NAME", os.path.splitext(hms_basename)[0])
-        
-        self.dss_file = os.path.join(self.project_dir, "tcc.dss")
-        self.gage_file = os.path.join(self.project_dir, "tcc.gage")
-        self.met_file = os.path.join(self.project_dir, "met_automatico.met")
-        self.control_file = os.path.join(self.project_dir, "control_automatico.control")
-
         base_dir = Path(__file__).resolve().parent.parent
         self.gcn_geojson_path = str(
             base_dir / "saidas" / "subbacias_corrigidas_com_gcn.geojson"
         )
-        self.local_output_dir = base_dir / "saidas" / "hms_export"
+        self.local_output_dir = base_dir / "saidas" / "hms_export" / self.project_name
         self.local_output_dir.mkdir(parents=True, exist_ok=True)
 
-        self.dss_file = str(self.local_output_dir / "tcc.dss")
-        self.gage_file = str(self.local_output_dir / "tcc.gage")
-        self.met_file = str(self.local_output_dir / "met_automatico.met")
-        self.control_file = str(self.local_output_dir / "control_automatico.control")
-        self.hms_dss_filename = str(PureWindowsPath("data") / "tcc.dss")
+        self.dss_file = str(self.local_output_dir / f"{self.project_name}.dss")
+        self.gage_file = str(self.local_output_dir / f"{self.project_name}.gage")
+        self.met_file = str(self.local_output_dir / f"{self.project_name}.met")
+        self.control_file = str(self.local_output_dir / f"{self.project_name}.control")
+        self.hms_dss_filename = str(
+            PureWindowsPath("data") / f"{self.project_name}.dss"
+        )
 
-        if not all ([self.csv_file, self.dss_file, self.gage_file, self.met_file]):
-            print("ERROR: Variables missing (CSV_FILE, DSS_FILE, GAGE_FILE, MET_FILE) at .env file.")
+        if not self.csv_file:
+            logging.warning("CSV_FILE is not configured; DSS generation will require a CSV path.")
 
         self.B_PART = "PRECIP"
         self.C_PART = "PRECIP-INC"       
-        self.E_PART = "1DAY"             
+        self.E_PART = "1Day"
         self.F_PART = "GPM-CHIRPS"
         self.INTERVAL = 1                
-        self.DATA_TYPE = "PER-INC"
+        self.DATA_TYPE = "PER-CUM"
         self.UNITS = "MM"
 
-        self.met_model_name = "met_automatico"
-        self.control_name = "control_automatico"
+        self.met_model_name = self.project_name
+        self.control_name = self.project_name
         self.GAGE_TEMPLATE = textwrap.dedent("""\
+Gage Manager:
+     Gage Manager:
+     Version: 4.13
+     Filepath Separator: \\
+End:
+
 {% for gage in gages %}
 Gage: {{ gage.name }}
      Gage: {{ gage.name }}
@@ -219,6 +239,7 @@ End:""")
         return "/" + "/".join(parts) + "/"
 
     def export_to_hec_hms_dir(self):
+        """Copy generated files into the HMS project, preserving an existing DSS first."""
         print(f"Copiando arquivos de saída para {self.project_dir}...")
         for src_file in self.local_output_dir.glob("*.*"):
             if src_file.suffix.lower() == ".dss":
@@ -227,6 +248,15 @@ End:""")
                 dest_file = os.path.join(data_dir, src_file.name)
             else:
                 dest_file = os.path.join(self.project_dir, src_file.name)
+            if src_file.suffix.lower() == ".dss" and os.path.exists(dest_file):
+                backup_dir = os.path.join(self.local_output_dir, "dss_backups")
+                os.makedirs(backup_dir, exist_ok=True)
+                timestamp = datetime.now().strftime("%Y%m%dT%H%M%S%f")
+                backup_path = os.path.join(
+                    backup_dir, f"project_{src_file.name}.{timestamp}.bak"
+                )
+                shutil.copy2(dest_file, backup_path)
+                logging.info("Previous project DSS preserved at %s.", backup_path)
             shutil.copy2(src_file, dest_file)
         print("✅ Files exported with success to HEC-HMS!")
 

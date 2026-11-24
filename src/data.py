@@ -13,6 +13,7 @@ from datetime import timedelta
 from shapely.geometry import mapping
 
 class PrecipitationDownloader:    
+    """Download daily CHIRPS basin means with a validated, resumable local CSV cache."""
     def __init__(self, config):
         self.config = config
         self.csv_folder = os.path.join(self.config.exit_path, "csv_blocks")
@@ -22,12 +23,18 @@ class PrecipitationDownloader:
         print("PrecipitationDownloader initilized.")
 
     def download_data(self, gdf_wgs84):
+        """Fetch missing 30-day blocks, validate coverage, then refresh the unified CSV."""
         try:
             print("\n--- Data extraction from Google Earth Engine initialized---")
             
             print("Preparing FeatureCollection for GEE...")
             fc = self._create_feature_collection(gdf_wgs84)
-            expected_subbasins = gdf_wgs84["raster_val"].tolist()
+            expected_subbasins = dict(
+                zip(
+                    gdf_wgs84["raster_val"].astype(int),
+                    gdf_wgs84["name"].astype(str).str.strip(),
+                )
+            )
             cache_parameters = self._cache_parameters(gdf_wgs84)
             self._prepare_cache(cache_parameters, expected_subbasins)
             
@@ -72,8 +79,13 @@ class PrecipitationDownloader:
             current_start = current_end
 
     def _cache_parameters(self, gdf_wgs84):
+        """Fingerprint every setting that can change the extracted precipitation values."""
         geometry_rows = sorted(
-            (str(row["raster_val"]), self._canonical_geometry(row.geometry))
+            (
+                str(row["raster_val"]),
+                str(row["name"]),
+                self._canonical_geometry(row.geometry),
+            )
             for _, row in gdf_wgs84.iterrows()
         )
         legacy_geometry_rows = sorted(
@@ -87,10 +99,10 @@ class PrecipitationDownloader:
             json.dumps(geometry_rows, separators=(",", ":")).encode("utf-8")
         ).hexdigest()
         return {
-            "schema_version": 1,
+            "schema_version": 3,
             "collection": "UCSB-CHG/CHIRPS/DAILY",
             "band": "precipitation",
-            "reducer": "weighted_mean",
+            "reducer": "weighted_mean_with_interior_pixel_fallback",
             "scale_meters": self.config.precipitation_scale,
             "block_days": 30,
             "start_date": self.config.start_date.strftime("%Y-%m-%d"),
@@ -147,8 +159,6 @@ class PrecipitationDownloader:
 
     @staticmethod
     def _canonical_ring(coordinates):
-        # Rounding to 1e-8 degrees suppresses serialization noise below about a
-        # millimeter while preserving meaningful changes to subbasin boundaries.
         points = [tuple(round(float(value), 8) for value in point) for point in coordinates]
         if len(points) > 1 and points[0] == points[-1]:
             points.pop()
@@ -171,6 +181,7 @@ class PrecipitationDownloader:
         return [list(point) for point in canonical]
 
     def _prepare_cache(self, parameters, expected_subbasins):
+        """Keep cached blocks only when their manifest matches the current extraction."""
         manifest_path = os.path.join(self.csv_folder, "cache_manifest.json")
         unified_path = os.path.join(
             self.config.exit_path, "precipitacao_diaria_subbacias_unificado.csv"
@@ -199,10 +210,8 @@ class PrecipitationDownloader:
                 previous_without_geometry == current_without_geometry
                 and previous_geometry_digest == getattr(self, "_legacy_geometry_digest", None)
             ):
-                # Upgrade manifests created with the former raw-WKB fingerprint
-                # without discarding resumable blocks from the interrupted run.
                 parameters_changed = False
-                print("Manifesto antigo compatível; atualizando hash geométrico sem limpar o cache.")
+                print("Old manifest compatible; updating geometry hash without clearing the cache.")
         has_previous_data = bool(block_paths) or os.path.isfile(unified_path)
         if parameters_changed and has_previous_data:
             backup_dir = self._create_csv_backup(
@@ -213,20 +222,18 @@ class PrecipitationDownloader:
                 unified_path=unified_path if os.path.isfile(unified_path) else None,
             )
             self.unified_csv_backed_up_for_parameter_change = os.path.isfile(unified_path)
-            # These files are safely archived; remove them from the active cache
-            # so blocks generated with old settings cannot be reused by filename.
             for path in block_paths:
                 os.remove(path)
             if os.path.isfile(manifest_path):
                 os.remove(manifest_path)
             print(
-                f"Cache anterior arquivado em {backup_dir}; os blocos serão reextraídos. "
-                "O CSV unificado anterior permanecerá disponível até a nova extração ser validada."
+                f"Old cache archived in {backup_dir}; blocks will be reextracted. "
+                "The previous unified CSV will remain available until the new extraction is validated."
             )
         elif parameters_changed:
-            print("Parâmetros novos detectados; iniciando cache sem dados anteriores.")
+            print("New parameters detected; initializing cache without previous data.")
         else:
-            print("Parâmetros da extração inalterados; cache compatível.")
+            print("Extraction parameters unchanged; cache compatible.")
 
         self._write_cache_manifest(manifest_path, parameters)
         self._restore_compatible_backup_blocks(parameters, expected_subbasins)
@@ -295,12 +302,12 @@ class PrecipitationDownloader:
                         if temp_path and os.path.exists(temp_path):
                             os.remove(temp_path)
                     restored.add(filename)
-                    print(f"Bloco local restaurado do backup: {filename}")
+                    print(f"Local block restored from backup: {filename}")
                 except Exception as error:
-                    print(f"Backup ignorado para {filename}; validação falhou: {error}")
+                    print(f"Backup ignored for {filename}; validation failed: {error}")
 
         if restored:
-            print(f"Cache local recuperado: {len(restored)} bloco(s) restaurado(s).")
+            print(f"Local cache recovered: {len(restored)} block(s) restored.")
 
     def _parameters_match(self, candidate, current):
         if candidate == current:
@@ -376,14 +383,19 @@ class PrecipitationDownloader:
                 os.remove(temp_path)
 
     def _create_feature_collection(self, gdf_wgs84):
+        """Convert basin geometries and identifiers into Earth Engine features."""
         features = []
         for _, row in gdf_wgs84.iterrows():
             geom = ee.Geometry(mapping(row.geometry))
             props = row.drop("geometry").to_dict()
+            sample_point = row.geometry.representative_point()
+            props["sample_lon"] = float(sample_point.x)
+            props["sample_lat"] = float(sample_point.y)
             features.append(ee.Feature(geom, props))
         return ee.FeatureCollection(features)
 
     def _get_image_collection(self, fc, start_date, end_date):
+        """Select daily CHIRPS images intersecting the basins and requested date block."""
         return (
             ee.ImageCollection("UCSB-CHG/CHIRPS/DAILY")
             .filterBounds(fc)
@@ -393,20 +405,45 @@ class PrecipitationDownloader:
         )
 
     def _zonal_mean(self, img, fc):
+        """Compute area means, falling back to an interior pixel for tiny basins."""
         stats = img.reduceRegions(
             collection=fc,
             reducer=ee.Reducer.mean(),
             scale=self.config.precipitation_scale
         )
         stats = stats.map(lambda f: f.set("date", img.get("date")))
-        return stats.map(lambda f: ee.Feature(f.geometry(), {
-            "raster_val": f.get("raster_val"),
-            "date": f.get("date"),
-            "precipitation": f.get("mean")
-        }))
+
+        def set_precipitation(feature):
+            area_mean = feature.get("mean")
+            sample_point = ee.Geometry.Point([
+                feature.get("sample_lon"),
+                feature.get("sample_lat"),
+            ])
+            point_value = img.reduceRegion(
+                reducer=ee.Reducer.first(),
+                geometry=sample_point,
+                crs=img.projection(),
+            ).get("precipitation")
+            use_point_fallback = ee.Algorithms.IsEqual(area_mean, None)
+            precipitation = ee.Algorithms.If(
+                use_point_fallback, point_value, area_mean
+            )
+            method = ee.Algorithms.If(
+                use_point_fallback, "interior_pixel_fallback", "area_mean"
+            )
+            return ee.Feature(feature.geometry(), {
+                "raster_val": feature.get("raster_val"),
+                "name": feature.get("name"),
+                "date": feature.get("date"),
+                "precipitation": precipitation,
+                "precipitation_method": method,
+            })
+
+        return stats.map(set_precipitation)
 
     def _merge_csvs(self, expected_subbasins=None):
-        print("Unificando arquivos CSV...")
+        """Validate all expected blocks and atomically publish the unified CSV."""
+        print("Unifying CSV files...")
         csv_files = []
         missing_files = []
         for block_start, block_end in self._date_blocks():
@@ -434,11 +471,11 @@ class PrecipitationDownloader:
                 temp_path = temp_file.name
                 all_data.to_csv(temp_file, index=False)
             if os.path.isfile(final_csv_path) and self._csv_data_equal(temp_path, final_csv_path):
-                print("CSV unificado já está atualizado; nenhum backup foi criado.")
+                print("Unified CSV is already up to date; no backup was created.")
                 return
             if os.path.isfile(final_csv_path):
                 if self.unified_csv_backed_up_for_parameter_change:
-                    print("CSV unificado anterior já foi arquivado pela alteração de parâmetros.")
+                    print("Previous unified CSV has already been archived due to parameter changes.")
                 else:
                     manifest_path = os.path.join(self.csv_folder, "cache_manifest.json")
                     previous_block_paths = [
@@ -451,12 +488,12 @@ class PrecipitationDownloader:
                         manifest_path=manifest_path,
                         unified_path=final_csv_path,
                     )
-                    print(f"CSV unificado anterior arquivado em {backup_dir}.")
+                    print(f"Previous unified CSV archived in {backup_dir}.")
             os.replace(temp_path, final_csv_path)
         finally:
             if temp_path and os.path.exists(temp_path):
                 os.remove(temp_path)
-        print(f"✅ CSV Unificado salvo em: {final_csv_path}")
+        print(f"✅ Unified CSV saved in: {final_csv_path}")
 
     def _read_cache_parameters(self):
         manifest_path = os.path.join(self.csv_folder, "cache_manifest.json")
@@ -486,12 +523,15 @@ class PrecipitationDownloader:
     def _validate_daily_coverage(
         self, data, expected_subbasins=None, period_start=None, period_end=None
     ):
-        required_columns = {"date", "raster_val", "precipitation"}
+        """Reject malformed rows, unsupported sampling methods, and incomplete daily series."""
+        required_columns = {
+            "date", "raster_val", "name", "precipitation", "precipitation_method"
+        }
         missing_columns = required_columns - set(data.columns)
         if missing_columns:
             raise ValueError(f"CSV blocks are missing required columns: {sorted(missing_columns)}")
-        if data["date"].isna().any() or data["raster_val"].isna().any():
-            raise ValueError("CSV blocks contain rows with missing dates or subbasin identifiers.")
+        if data["date"].isna().any() or data["raster_val"].isna().any() or data["name"].isna().any():
+            raise ValueError("CSV blocks contain rows with missing dates, IDs, or HEC-HMS names.")
 
         data = data.copy()
         data["date"] = pd.to_datetime(data["date"], errors="coerce")
@@ -502,10 +542,45 @@ class PrecipitationDownloader:
             raise ValueError("Daily CSV dates must not contain a time of day.")
         data["date"] = normalized_dates
 
-        data["precipitation"] = pd.to_numeric(data["precipitation"], errors="coerce")
+        data["raster_val"] = pd.to_numeric(data["raster_val"], errors="coerce")
+        raster_ids = data["raster_val"].to_numpy(dtype=np.float64)
+        if not np.isfinite(raster_ids).all() or (raster_ids <= 0).any() or (raster_ids % 1 != 0).any():
+            raise ValueError("CSV blocks contain invalid subbasin IDs.")
+        data["raster_val"] = data["raster_val"].astype("int64")
+        data["name"] = data["name"].astype("string").str.strip()
+        if data["name"].eq("").any():
+            raise ValueError("CSV blocks contain empty HEC-HMS subbasin names.")
+        data["precipitation_method"] = data["precipitation_method"].astype("string")
+        valid_methods = {"area_mean", "interior_pixel_fallback"}
+        unexpected_methods = set(data["precipitation_method"].dropna()) - valid_methods
+        if data["precipitation_method"].isna().any() or unexpected_methods:
+            raise ValueError(
+                "CSV blocks contain missing or unsupported precipitation methods: "
+                f"{sorted(unexpected_methods)}"
+            )
+
+        raw_precipitation = data["precipitation"].copy()
+        data["precipitation"] = pd.to_numeric(raw_precipitation, errors="coerce")
         precipitation = data["precipitation"].to_numpy(dtype=np.float64)
-        if not np.isfinite(precipitation).all() or (precipitation < 0).any():
-            raise ValueError("CSV blocks contain missing, non-finite, or negative precipitation values.")
+        invalid_precipitation = ~np.isfinite(precipitation) | (precipitation < 0)
+        if invalid_precipitation.any():
+            missing_values = raw_precipitation.isna()
+            non_numeric_values = data["precipitation"].isna() & raw_precipitation.notna()
+            non_finite_values = data["precipitation"].notna() & ~np.isfinite(precipitation)
+            negative_values = data["precipitation"].lt(0)
+            sample_columns = ["date", "raster_val", "name", "precipitation_method"]
+            examples = data.loc[
+                invalid_precipitation, sample_columns
+            ].copy()
+            examples["precipitation_raw"] = raw_precipitation.loc[invalid_precipitation]
+            raise ValueError(
+                "Invalid precipitation values in CSV block: "
+                f"missing={int(missing_values.sum())}, "
+                f"non_numeric={int(non_numeric_values.sum())}, "
+                f"non_finite={int(non_finite_values.sum())}, "
+                f"negative={int(negative_values.sum())}; "
+                f"examples={examples.head(10).to_dict(orient='records')}"
+            )
 
         start = pd.Timestamp(period_start or self.config.start_date).normalize()
         end = pd.Timestamp(period_end or self.config.end_date).normalize()
@@ -515,7 +590,14 @@ class PrecipitationDownloader:
             raise ValueError("CSV blocks contain dates outside the configured inclusive period.")
 
         if expected_subbasins is not None:
-            expected_ids = set(expected_subbasins)
+            expected_names = (
+                {int(sub_id): str(name) for sub_id, name in expected_subbasins.items()}
+                if isinstance(expected_subbasins, dict)
+                else None
+            )
+            expected_ids = set(
+                expected_names if expected_names is not None else expected_subbasins
+            )
             actual_ids = set(data["raster_val"].unique())
             if actual_ids != expected_ids:
                 missing_ids = sorted(expected_ids - actual_ids)
@@ -524,6 +606,27 @@ class PrecipitationDownloader:
                     f"Subbasin IDs do not match the input geometries; missing={missing_ids}, "
                     f"unexpected={unexpected_ids}."
                 )
+
+            if expected_names is not None:
+                actual_names = data.groupby("raster_val")["name"].agg(set)
+                mismatched_names = {
+                    int(sub_id): sorted(names)
+                    for sub_id, names in actual_names.items()
+                    if names != {expected_names[int(sub_id)]}
+                }
+                if mismatched_names:
+                    raise ValueError(
+                        "CSV HEC-HMS names do not match the input geometries: "
+                        f"{mismatched_names}"
+                    )
+
+        duplicate_names = data.groupby("name")["raster_val"].nunique()
+        duplicate_names = duplicate_names[duplicate_names > 1]
+        if not duplicate_names.empty:
+            raise ValueError(
+                "A HEC-HMS subbasin name maps to multiple IDs: "
+                + ", ".join(duplicate_names.index.astype(str))
+            )
 
         grouped = data.groupby("raster_val", sort=False)
         issues = []

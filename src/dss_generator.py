@@ -9,6 +9,7 @@ import tempfile
 from datetime import datetime
 
 class DssGenerator:
+    """Validate daily CSV data and write one DSS precipitation series per subbasin."""
     def __init__(self, config) -> list:
         self.config = config
         logging.info("DssGenerator initialized.")
@@ -19,6 +20,7 @@ class DssGenerator:
         return self.create_dss_file()
  
     def create_dss_file(self) -> list:
+        """Build a staged DSS and replace the active file only after validation succeeds."""
         try:
             filtered_df = self._read_validated_period()
         except FileNotFoundError:
@@ -38,7 +40,6 @@ class DssGenerator:
         os.makedirs(output_dir, exist_ok=True)
         expected_gage_count = filtered_df["raster_val"].nunique()
 
-        # Build separately so a failed write leaves the active DSS untouched.
         with tempfile.TemporaryDirectory(prefix=".dss_build_", dir=output_dir) as build_dir:
             staged_dss_path = os.path.join(build_dir, os.path.basename(dss_path))
             with HecDss.Open(staged_dss_path, version=7) as dss:
@@ -49,13 +50,20 @@ class DssGenerator:
                     pathname_save = self.config.build_dss_pathname(
                         sub_id, start_date.strftime("%d%b%Y")
                     )
-                    pathname_ref = self.config.build_dss_pathname(sub_id)
                     tsc = self.build_tsc(pathname_save, start_date, values)
                     dss.put_ts(tsc)
+                    matching_paths = dss.search_path(pathname_save)
+                    if len(matching_paths) != 1:
+                        raise RuntimeError(
+                            f"Expected one DSS record for {pathname_save!r}; "
+                            f"found {len(matching_paths)}."
+                        )
+                    pathname_ref = matching_paths[0]
                     logging.info(f"Data saved for subbasin {sub_id}.")
                     gage_entries.append({
                         "id": f"Gage-{i}",
                         "name": f"S_{sub_id}",
+                        "subbasin": str(sub_df["name"].iloc[0]),
                         "dss_file": os.path.basename(dss_path),
                         "dss_path": pathname_ref
                     })
@@ -83,15 +91,28 @@ class DssGenerator:
     def _read_validated_period(self):
         """Load the requested inclusive period and require one daily value per basin."""
         df = pd.read_csv(self.config.csv_file, parse_dates=['date'])
-        required_columns = {'date', 'raster_val', 'precipitation'}
+        required_columns = {'date', 'raster_val', 'name', 'precipitation'}
         missing_columns = required_columns - set(df.columns)
         if missing_columns:
             raise ValueError(f"CSV is missing required columns: {sorted(missing_columns)}")
-        if df['date'].isna().any() or df['raster_val'].isna().any():
-            raise ValueError("CSV contains rows with missing dates or subbasin identifiers.")
+        if df['date'].isna().any() or df['raster_val'].isna().any() or df['name'].isna().any():
+            raise ValueError("CSV contains rows with missing dates, IDs, or HEC-HMS names.")
 
-        # Compare normalized calendar days, but reject times that would make
-        # otherwise identical daily records ambiguous.
+        df["raster_val"] = pd.to_numeric(df["raster_val"], errors="coerce")
+        raster_ids = df["raster_val"].to_numpy(dtype=np.float64)
+        if not np.isfinite(raster_ids).all() or (raster_ids <= 0).any() or (raster_ids % 1 != 0).any():
+            raise ValueError("CSV contains invalid subbasin IDs.")
+        df["raster_val"] = df["raster_val"].astype("int64")
+        df["name"] = df["name"].astype("string").str.strip()
+        if df["name"].eq("").any():
+            raise ValueError("CSV contains empty HEC-HMS subbasin names.")
+        names_per_id = df.groupby("raster_val")["name"].agg(set)
+        ids_per_name = df.groupby("name")["raster_val"].nunique()
+        if any(names != {f"S{sub_id}"} for sub_id, names in names_per_id.items()) or (ids_per_name != 1).any():
+            raise ValueError(
+                "CSV must preserve the one-to-one mapping S<N> → raster_val N."
+            )
+
         normalized_dates = df['date'].dt.normalize()
         has_time = df['date'].ne(normalized_dates)
         if has_time.any():
@@ -125,6 +146,7 @@ class DssGenerator:
         return df
 
     def build_tsc(self, pathname, start_date, values) -> TimeSeriesContainer:
+        """Create the regular daily DSS time-series record expected by HEC-HMS."""
 
         if hasattr(values, "to_numpy"):
             valid_values = values.to_numpy(dtype=np.float64)
